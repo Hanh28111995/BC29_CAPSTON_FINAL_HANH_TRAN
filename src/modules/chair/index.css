@@ -1,0 +1,19 @@
+.ghe {
+  width: 35px;
+  height: 35px;
+  background: #dad2b4;
+  margin: 3px;
+}
+
+.ghe.gheVip {
+  background-color: burlywood;
+}
+
+.ghe.dangDat {
+  background-color: mediumaquamarine;
+}
+
+.ghe.daDat {
+  cursor: not-allowed;
+  background-color: #856307;
+}

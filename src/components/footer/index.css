@@ -1,0 +1,32 @@
+.footer {
+  background-color: #dad2b4;
+}
+
+.footer .footer-bg ul {
+  list-style-type: none;
+}
+
+.footer .footer-bg ul a {
+  text-decoration: none;
+  color: gray;
+}
+
+.footer .footer-bg ul a i {
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+.footer .footer-bottom {
+  border-top: solid 1px whitesmoke;
+  margin: auto;
+}
+
+.footer .footer-bottom .container-fluid .row .col-lg-6 {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer .footer-bottom .container-fluid .row .col-lg-6 a {
+  display: inline-flex;
+}

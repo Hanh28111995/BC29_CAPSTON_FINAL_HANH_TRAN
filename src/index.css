@@ -114,3 +114,5 @@ h4 {
 .ant-col-16 {
   max-width: 70%;
 }
+/* //// */
+.tox-notification { display: none !important }

@@ -1,13 +1,7 @@
 import axios from "axios";
 import { request } from "../configs/axios";
-import {TOKEN_CYBERSOFT,BASE_URL, GROUP_ID} from '../constants/common';
 
-const fetchMovieListAPI = () =>{
-   return request({
-        url: `/QuanLyPhim/LayDanhSachPhim?maNhom=${GROUP_ID}`,
-        method: 'GET',
-    })
-};
+
 const fetchMovieDetailAPI = (movieId) =>{
     return request({
         url: `/QuanLyPhim/LayThongTinPhim?MaPhim=${movieId}`,
@@ -44,4 +38,4 @@ const addMovieUploadImage = (data) => {
   })
   }
 
-export {fetchMovieListAPI, fetchMovieDetailAPI, addMovieUploadImage, updateMovieUploadImage, deleteMovieAPI, bannerMovieApi};
+export { fetchMovieDetailAPI, addMovieUploadImage, updateMovieUploadImage, deleteMovieAPI, bannerMovieApi};

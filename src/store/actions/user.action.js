@@ -1,15 +1,35 @@
-import {SET_USER_INFO ,SET_DATE } from "../types/user.type";
- const setUserInfoAction = (data) => {
+import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA } from "../types/user.type";
+const setUserInfoAction = (data) => {
     return {
         type: SET_USER_INFO,
         payload: data,
     }
- };
- const setDate = (date) => {
+};
+const setDate = (date) => {
     return {
         type: SET_DATE,
         payload: date,
     }
- };
+};
 
- export {setUserInfoAction, setDate}
+const userSearch = (list) => {
+    return {
+        type: SEARCH_USER,
+        payload: list,
+    }
+};
+const setCategory = (clist) => {
+    return {
+        type: DEFAULT_CATEGORY,
+        payload: clist,
+    }
+};
+
+const setEditDataProject = (data) => {
+    return {
+        type: SET_EDIT_DATA,
+        payload: data,
+    }
+};
+
+export { setUserInfoAction, setDate, userSearch, setCategory, setEditDataProject }

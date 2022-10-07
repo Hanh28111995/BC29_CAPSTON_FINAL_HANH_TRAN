@@ -1,0 +1,19 @@
+@import './variable';
+.btn-signup {
+    color: $color-dark-2;
+    background-color: $color-white-1;
+    border: solid 2px $color-blue-4;
+
+    a {
+        color: $color-dark-2  !important;
+    }
+
+    &:hover {
+        color: $color-white-1 ;
+        background-color: $color-blue-4  !important;
+
+        a {
+            color: $color-white-1  !important;
+        }
+    }
+}

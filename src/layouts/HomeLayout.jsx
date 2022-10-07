@@ -8,9 +8,9 @@ import "./index.scss";
 export default function HomeLayout() {
   return (
     < div className="wrapper">
-      <Header />
+      {/* <Header /> */}
       <Outlet/>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { request } from "../configs/axios";
 const loginAPI = (data) => {
   return request({
     data: data,
-    url: `/QuanLyNguoiDung/DangNhap`,
+    url: '/Users/signin',
     method: "POST",
   });
 };
@@ -12,7 +12,7 @@ const loginAPI = (data) => {
 const registerApi = (data) => {
   return request({
     data,
-    url: "/QuanLyNguoiDung/DangKy",
+    url: '/Users/signup',
     method: "POST",
   });
 };

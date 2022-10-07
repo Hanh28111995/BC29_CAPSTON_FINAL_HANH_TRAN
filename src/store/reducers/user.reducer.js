@@ -1,13 +1,31 @@
+import { LoadingContext } from "contexts/loading.context";
+import { useContext } from "react";
+import { fetchCreateProjectAPI } from "services/project";
 import { USER_INFO_KEY } from "../../constants/common";
-import { SET_USER_INFO,  SET_DATE } from "../types/user.type";
+import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA } from "../types/user.type";
 
 let userInfor = localStorage.getItem(USER_INFO_KEY);
 if (userInfor) {
   userInfor = JSON.parse(userInfor);
 }
+// const [_, setLoadingState] = useContext(LoadingContext);
 const DEFAULT_STATE = {
   userInfor,
   date: '',
+  list: [],
+  category: [],
+  detail: {
+    setOpen: false,
+    infor: <hr />,
+    callBackSubmit: (propsValue) => { alert('click demo') },
+    data: {
+      id: 0,
+      projectName: "",
+      creator: 0,
+      description: "",
+      categoryId: ""
+    },
+  },
 };
 export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
   switch (type) {
@@ -17,6 +35,19 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
     }
     case SET_DATE: {
       state.date = payload;
+      return { ...state };
+    }
+    case SEARCH_USER: {
+      state.list = payload;
+      return { ...state };
+    }
+    case DEFAULT_CATEGORY: {
+      state.category = payload;
+      return { ...state };
+    }
+
+    case SET_EDIT_DATA: {
+      state.detail = payload;
       return { ...state };
     }
     default:
