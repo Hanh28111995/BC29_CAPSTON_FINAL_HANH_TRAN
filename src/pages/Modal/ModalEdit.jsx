@@ -2,14 +2,15 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEditDataProject } from 'store/actions/user.action';
+import { useNavigate } from 'react-router-dom';
+import { setEditDataProject, setEditSubmit } from 'store/actions/user.action';
 import "./index.scss";
 const { Option } = Select;
 
 function ModalEdit() {
     const userState = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
 
     // const [open, setOpen] = useState(false);
 
@@ -17,30 +18,33 @@ function ModalEdit() {
     //     setOpen(true);
     //     console.log('click')
     // };
-
+    const onSave = () => {
+        userState.callBackSubmit();
+        onClose();
+        navigate(0);
+    }
     const onClose = () => {
+        console.log('ssss')
         dispatch(setEditDataProject(
-      {
-        detail: {
-            setOpen: false,
-            infor: <hr />,
-            callBackSubmit: (propsValue) => { alert('click demo') },
-            data: {
-              id: 0,
-              projectName: "string",
-              creator: 0,
-              description: "string",
-              categoryId: "string"
-            },
-          },
-    }));
+            {
+                detail: {
+                    setOpen: false,
+                    infor: <hr />,
+                    data: {
+                        id: 0,
+                        projectName: "string",
+                        creator: 0,
+                        description: "string",
+                        categoryId: "string"
+                    },
+                },
+            }));
+        dispatch(setEditSubmit((propsValue) => { alert('click demo') },
+        ));
     };
 
     return (
         <>
-            {/* <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
-                New account
-            </Button> */}
             <Drawer
                 title="Create a new account"
                 width={720}
@@ -50,9 +54,9 @@ function ModalEdit() {
                     paddingBottom: 80,
                 }}
                 footer={
-                    <Space style={{justifyContent: 'right', width:'100%'}}>
+                    <Space style={{ justifyContent: 'right', width: '100%' }}>
                         <Button onClick={onClose}>Cancel</Button>
-                        <Button onClick={userState.detail.callBackSubmit} type="primary">
+                        <Button onClick={onSave} type="primary">
                             Submit
                         </Button>
                     </Space>

@@ -30,6 +30,7 @@ function ProjectTable() {
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
   const userState = useSelector((state) => state.userReducer);
+
   const { state: data = [] } = useAsync({
     dependencies: [toggle],
     service: () => fetchProjectListAPI(),
@@ -70,21 +71,20 @@ function ProjectTable() {
   const handleEditProject = async (x) => {
     setLoadingState({ isLoading: true });
     const result = await fetchProjectDetailAPI(x);
+    setLoadingState({ isLoading: false });
     console.log(result.data.content)
     dispatch(setEditDataProject(
       {
         setOpen: true,
         infor: <EditForm />,
-        callBackSubmit: (propsValue) => { alert('click demo') },
         data: {
           id: result.data.content.id,
           projectName: result.data.content.projectName,
-          creator: result.data.content.creator.name,
+          creator: result.data.content.creator.id,
           description: result.data.content.description,
           categoryId: result.data.content.projectCategory.id
         },
       }));
-    setLoadingState({ isLoading: false });
   }
 
   const handdleRemoveUser = async (x, y) => {
@@ -98,26 +98,7 @@ function ProjectTable() {
 
   useEffect(() => {
     if (data) {
-      // data.map(item => { 
-      // chỗ này qua mỗi prọect thì fetch lại mems, vậy thì khi mà lặp qua item thứ 2 thì cái setMems ở trên nó update lại thành mems của project thứ 2 rồi, mất mems của project 1
-      // nếu muốn xử lý theo đề ghi thì phải setMemsLít mà theo kiểu [...memsLít, ...result.data.content] với mỗi phần tử trong mảng này phải lưu lại id của project nữa
-      // nên nó hơi phức tạp hơn xíu, nếu mà gọi api ban đầu đuwọc rồi thì chắc ưu tiên đơn giản, khỏi call lại api nữa r a
-      //phần hover đó làm ntn?
-      // có phần hướng dẫn trên hệ thống á anh, video 
-      // có gì a tham khảo thử nha a ok, bye bye oki a, bye a,
-      // console.log(item);
-      // fetchMemsList(item.id);
-      // do cái này mình lặp qua mảng rồi fetch mems theo từng project => nó sẽ ra nhiều list khác nhau
-      // à , nhưng còn mấy chỗ bị rỗng thì sao
-      // thì chắc không rendẻ ra thôi anh vậy 2 cái đó nếu mình add hoác delete mem thì cả 2 thay đổi hết phải ko
-      // nếu backend đúng thì nó sẽ thay đổi cả hai, em thì không biết do em ko có code backend , do phần hướng dẫn nói là call api kia nên a làm theo
-      // vậy nếu anh call api theo cũng được á, data 2 apí đều trả về giống nhau mà, hoặc là để code hiện tại, khỏi call api theo cũng đc
-      // còn nếu call thêm api thì có vẻ như code hiện giờ chưa có lưu được hết tất cả các mems của tất cả project
-      // item.members = MemsList;
-      // console.log(item.members , item.id)
-      // console.log(ProjectList)
       setProjectList(data)
-
     }
   }, [data]);
 

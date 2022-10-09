@@ -9,7 +9,7 @@ import { connect, useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { fetchUpdateProjectDetailAPI } from 'services/project';
 import { fetchProjectCategoryAPI } from 'services/project';
-import { setCategory, setEditDataProject } from 'store/actions/user.action';
+import { setCategory, setEditDataProject, setEditSubmit } from 'store/actions/user.action';
 import * as Yup from 'yup';
 
 
@@ -17,17 +17,6 @@ function EditForm(props) {
 
     const userState = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
-    const submitForm = (e) => {
-        e.preventDefault();
-        alert('submit edit');
-         console.log(values)
-        
-    }
-
-    const { state: CategoryList = [] } = useAsync({
-        dependencies: [],
-        service: () => fetchProjectCategoryAPI(),
-    })
 
     const {
         values,
@@ -36,21 +25,25 @@ function EditForm(props) {
         setFieldValue,
     } = props;
 
-    useEffect(() => {
-        dispatch(setEditDataProject(
-            {
-                setOpen: true,
-                infor: <EditForm />,
-                callBackSubmit: submitForm,
-                data: userState.detail.data,
-            }
-        ))
-        console.log('userState',userState.detail.data)
+    const submitForm = () => {
+        // e.preventDefault();
+        handleSubmit();
+    }
 
+    const { state: CategoryList = [] } = useAsync({
+        dependencies: [],
+        service: () => fetchProjectCategoryAPI(),
+    })
+
+    useEffect(() => {
+    
+        dispatch(setEditSubmit(submitForm))
     }, [])
+    
 
     useEffect(() => {
-        
+        // console.log(values)
+
         if (CategoryList.length) {
             dispatch(setCategory(CategoryList));
         }
@@ -64,13 +57,13 @@ function EditForm(props) {
     // const { id, projectName, description, categoryId } = values.;
     return (
 
-        <form className='container' onSubmit={handleSubmit} onChange={handleChange} >
+        <form className='container' onSubmit={submitForm} onChange={handleChange} >
             <div className='row'>
                 <div className='col-4'>
                     <div className='form-group'>
                         <p className='font-weight-bold'>Project Id</p>
                         <input disabled className='form-control' name='id'
-                            // value={values.id}
+                            value={values.id}
                         onChange={handleChange}
                         />
                     </div>
@@ -79,7 +72,7 @@ function EditForm(props) {
                     <div className='form-group'>
                         <p className='font-weight-bold'>Project Name</p>
                         <input className='form-control' name='projectName'
-                            // value={values.projectName} 
+                            value={values.projectName} 
                             onChange={handleChange} />
                     </div>
                 </div>
@@ -87,7 +80,7 @@ function EditForm(props) {
                     <div className='form-group'>
                         <p className='font-weight-bold'>Category</p>
                         <select name="categoryId" className='form-control'
-                            // value={values.categoryId} 
+                            defaultValue={values.categoryId} 
                             onChange={handleChange}>
                             {
                                 userState?.category.map((item, index) => {
@@ -102,7 +95,7 @@ function EditForm(props) {
                         <p className='font-weight-bold'>Description</p>
                         <Editor
                             name='description'
-                            // initialValue={values.description}
+                            initialValue={values.description}
                             init={{
                                 height: 500,
                                 menubar: false,
@@ -122,7 +115,6 @@ function EditForm(props) {
                     </div>
                 </div>
             </div>
-            <button className='btn btn-outline-primary' type='submit' onClick={()=>{console.log(values)}}>Check</button>
 
         </form>
     )
@@ -144,20 +136,15 @@ const CreateProjectForm = withFormik({
     }),
     handleSubmit: async (values, { props, setSubmitting }) => {
 
-        //   try {
-        //     props.setLoadingState(true);
-        //     await fetchUpdateProjectDetailAPI(props.projectEdit.id ,values);
-        //     props.setLoadingState(false);
-        //   }
-        //   catch
-        //   {
-        
-        console.log('fail')
-        //   }
-
-
-        // props.navigate('/project-management/project')
-        // console.log(props.navigate, "HELLO"); // cho nay goi dc navigate r ne a
+          try {
+            props.setLoadingState(true);
+            await fetchUpdateProjectDetailAPI(props.projectEdit.id ,values);
+            props.setLoadingState(false);
+          }
+          catch
+          {
+            console.log("HELLO");
+          }
     },
     displayName: 'CreateProjectFormit',
 })(EditForm)
