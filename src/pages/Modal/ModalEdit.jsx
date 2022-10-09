@@ -21,8 +21,18 @@ function ModalEdit() {
     const onClose = () => {
         dispatch(setEditDataProject(
       {
-      setOpen: false,
-      infor:<hr/>,
+        detail: {
+            setOpen: false,
+            infor: <hr />,
+            callBackSubmit: (propsValue) => { alert('click demo') },
+            data: {
+              id: 0,
+              projectName: "string",
+              creator: 0,
+              description: "string",
+              categoryId: "string"
+            },
+          },
     }));
     };
 

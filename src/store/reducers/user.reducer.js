@@ -20,10 +20,10 @@ const DEFAULT_STATE = {
     callBackSubmit: (propsValue) => { alert('click demo') },
     data: {
       id: 0,
-      projectName: "",
+      projectName: "string",
       creator: 0,
-      description: "",
-      categoryId: ""
+      description: "string",
+      categoryId: "string"
     },
   },
 };

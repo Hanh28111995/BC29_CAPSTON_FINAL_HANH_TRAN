@@ -71,20 +71,20 @@ function ProjectTable() {
     setLoadingState({ isLoading: true });
     const result = await fetchProjectDetailAPI(x);
     console.log(result.data.content)
-    setLoadingState({ isLoading: false });
     dispatch(setEditDataProject(
       {
-      setOpen: true,
-      infor:<EditForm/>,
-      callBackSubmit:(propsValue) =>{alert('click demo')},
-      data: {
-        "id": result.data.content.id,
-        "projectName": result.data.content.projectName,
-        "creator": result.data.content.creator.name,
-        "description": result.data.content.description,
-        "categoryId": result.data.content.projectCategory.id
-      },
-    }));
+        setOpen: true,
+        infor: <EditForm />,
+        callBackSubmit: (propsValue) => { alert('click demo') },
+        data: {
+          id: result.data.content.id,
+          projectName: result.data.content.projectName,
+          creator: result.data.content.creator.name,
+          description: result.data.content.description,
+          categoryId: result.data.content.projectCategory.id
+        },
+      }));
+    setLoadingState({ isLoading: false });
   }
 
   const handdleRemoveUser = async (x, y) => {

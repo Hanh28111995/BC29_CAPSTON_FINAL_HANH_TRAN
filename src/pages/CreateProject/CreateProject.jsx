@@ -36,6 +36,7 @@ function CreateProjectTable(props) {
     if (CategoryList.length) {
       dispatch(setCategory(CategoryList));
     }
+    console.log(handleChange)
   }, [CategoryList])
 
     const handleEditorChange = (content, editor) => {
@@ -48,7 +49,7 @@ function CreateProjectTable(props) {
         <form className='container' onSubmit={handleSubmit} onChange={handleChange}>
           <div className='form-group'>
             <p>Name</p>
-            <input className='form-control' name='projectName' />
+            <input className='form-control' name='projectName' value={values.projectName}/>
           </div>
           <div className='form-group'>
             <p>Description</p>
@@ -93,7 +94,7 @@ function CreateProjectTable(props) {
     mapPropsToValues: (props) => {
       console.log('props', props.ListCategory)
       return {
-        projectName: '',
+        projectName: 'x',
         description: '',
         categoryId: props.ListCategory[0]?.id,
       }

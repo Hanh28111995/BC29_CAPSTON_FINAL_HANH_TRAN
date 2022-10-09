@@ -14,25 +14,27 @@ import * as Yup from 'yup';
 
 
 function EditForm(props) {
-    const { state: CategoryList = [] } = useAsync({
-        dependencies: [],
-        service: () => fetchProjectCategoryAPI(),   
-      })
 
     const userState = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
     const submitForm = (e) => {
-        handleSubmit();
         e.preventDefault();
         alert('submit edit');
+         console.log(values)
+        
     }
+
+    const { state: CategoryList = [] } = useAsync({
+        dependencies: [],
+        service: () => fetchProjectCategoryAPI(),
+    })
+
     const {
         values,
         handleChange,
         handleSubmit,
         setFieldValue,
     } = props;
-
 
     useEffect(() => {
         dispatch(setEditDataProject(
@@ -43,38 +45,50 @@ function EditForm(props) {
                 data: userState.detail.data,
             }
         ))
-    }, [])
-    useEffect(() => {
-        if (CategoryList.length) {
-          dispatch(setCategory(CategoryList));
-        }
-      }, [CategoryList])
+        console.log('userState',userState.detail.data)
 
-      const handleEditorChange = (content, editor) => {
+    }, [])
+
+    useEffect(() => {
+        
+        if (CategoryList.length) {
+            dispatch(setCategory(CategoryList));
+        }
+    }, [CategoryList])
+
+
+    const handleEditorChange = (content, editor) => {
         setFieldValue('description', content)
-      }
-      
-    const { id, projectName, description, categoryId } = userState.detail.data;
+    }
+
+    // const { id, projectName, description, categoryId } = values.;
     return (
 
-        <form className='container' onSubmit={submitForm} onChange={handleChange}>
+        <form className='container' onSubmit={handleSubmit} onChange={handleChange} >
             <div className='row'>
                 <div className='col-4'>
                     <div className='form-group'>
                         <p className='font-weight-bold'>Project Id</p>
-                        <input disabled className='form-control' name='id' value={id} />
+                        <input disabled className='form-control' name='id'
+                            // value={values.id}
+                        onChange={handleChange}
+                        />
                     </div>
                 </div>
                 <div className='col-4'>
                     <div className='form-group'>
                         <p className='font-weight-bold'>Project Name</p>
-                        <input className='form-control' name='projectName' value={projectName} onChange={handleChange}/>
+                        <input className='form-control' name='projectName'
+                            // value={values.projectName} 
+                            onChange={handleChange} />
                     </div>
                 </div>
                 <div className='col-4'>
                     <div className='form-group'>
                         <p className='font-weight-bold'>Category</p>
-                        <select name="categoryId" className='form-control' defaultValue={categoryId} onChange={handleChange}>
+                        <select name="categoryId" className='form-control'
+                            // value={values.categoryId} 
+                            onChange={handleChange}>
                             {
                                 userState?.category.map((item, index) => {
                                     return <option value={item.id} key={index}>{item.projectCategoryName}</option>
@@ -88,8 +102,7 @@ function EditForm(props) {
                         <p className='font-weight-bold'>Description</p>
                         <Editor
                             name='description'
-                            initialValue="<p>This is the initial content of the editor.</p>"
-                            value={description}
+                            // initialValue={values.description}
                             init={{
                                 height: 500,
                                 menubar: false,
@@ -109,7 +122,7 @@ function EditForm(props) {
                     </div>
                 </div>
             </div>
-
+            <button className='btn btn-outline-primary' type='submit' onClick={()=>{console.log(values)}}>Check</button>
 
         </form>
     )
@@ -121,7 +134,7 @@ const CreateProjectForm = withFormik({
         return {
             id: props.projectEdit.id,
             projectName: props.projectEdit.projectName,
-            creator: props.projectEdit.creator.id,
+            creator: props.projectEdit.creator,
             description: props.projectEdit.description,
             categoryId: props.projectEdit.categoryId,
         }
@@ -131,16 +144,17 @@ const CreateProjectForm = withFormik({
     }),
     handleSubmit: async (values, { props, setSubmitting }) => {
 
-          try {
-            props.setLoadingState(true);
-            await fetchUpdateProjectDetailAPI(props.projectEdit.id ,values);
-            props.setLoadingState(false);
-          }
-          catch
-          {
-            console.log('fail')
-          }
-          
+        //   try {
+        //     props.setLoadingState(true);
+        //     await fetchUpdateProjectDetailAPI(props.projectEdit.id ,values);
+        //     props.setLoadingState(false);
+        //   }
+        //   catch
+        //   {
+        
+        console.log('fail')
+        //   }
+
 
         // props.navigate('/project-management/project')
         // console.log(props.navigate, "HELLO"); // cho nay goi dc navigate r ne a
