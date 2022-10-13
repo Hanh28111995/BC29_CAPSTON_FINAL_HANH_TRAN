@@ -36,7 +36,6 @@ function CreateProjectTable(props) {
     if (CategoryList.length) {
       dispatch(setCategory(CategoryList));
     }
-    console.log(handleChange)
   }, [CategoryList])
 
     const handleEditorChange = (content, editor) => {
@@ -45,16 +44,16 @@ function CreateProjectTable(props) {
 
     return (
       <div className='container m-5'>
-        <h3>CreateProject</h3>
+        <h3>Create Project</h3>
         <form className='container' onSubmit={handleSubmit} onChange={handleChange}>
           <div className='form-group'>
             <p>Name</p>
-            <input className='form-control' name='projectName' value={values.projectName}/>
+            <input className='form-control' name='projectName' />
           </div>
           <div className='form-group'>
             <p>Description</p>
             <Editor
-              name='Description'
+              name='description'
               initialValue="<p>This is the initial content of the editor.</p>"
               init={{
                 height: 500,
@@ -94,7 +93,7 @@ function CreateProjectTable(props) {
     mapPropsToValues: (props) => {
       console.log('props', props.ListCategory)
       return {
-        projectName: 'x',
+        projectName: '',
         description: '',
         categoryId: props.ListCategory[0]?.id,
       }

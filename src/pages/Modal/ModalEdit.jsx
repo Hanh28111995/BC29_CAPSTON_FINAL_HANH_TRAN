@@ -21,10 +21,9 @@ function ModalEdit() {
     const onSave = () => {
         userState.callBackSubmit();
         onClose();
-        navigate(0);
+        // navigate(0);
     }
     const onClose = () => {
-        console.log('ssss')
         dispatch(setEditDataProject(
             {
                 detail: {
@@ -46,7 +45,7 @@ function ModalEdit() {
     return (
         <>
             <Drawer
-                title="Create a new account"
+                title={userState.detail.title}
                 width={720}
                 onClose={onClose}
                 open={userState.detail.setOpen}

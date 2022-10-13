@@ -6,12 +6,43 @@ const fetchProjectListAPI = () => {
         method: 'GET',
     })
 };
+
+const fetchProjectPriorityAPI = () => {
+    return request({
+        url: '/Priority/getAll',
+        method: 'GET',
+    })
+};
+
+const fetchProjectTaskTypeAPI = () => {
+    return request({
+        url: '/TaskType/getAll',
+        method: 'GET',
+    })
+};
+
+const fetchProjectStatusIdAPI = () => {
+    return request({
+        url: '/Status/getAll',
+        method: 'GET',
+    })
+};
+
+const fetchCreateTaskAPI = (data) => {
+    return request({
+        url: '/Project/createTask',
+        method: 'POST',
+        data,
+    })
+}
+
 const fetchGetUserAPI = (keyword) => {
     return request({
         url: `/Users/getUser?keyword=${keyword}`,
         method: 'GET',
     })
 };
+
 const fetchProjectCategoryAPI = () => {
     return request({
         url: '/ProjectCategory',
@@ -24,7 +55,7 @@ const fetchProjectDetailAPI = (projectID) => {
         method: 'GET',
     })
 }
-const fetchUpdateProjectDetailAPI = (projectID,data) => {
+const fetchUpdateProjectDetailAPI = (projectID, data) => {
     return request({
         url: `/Project/updateProject?projectId=${projectID}`,
         method: 'PUT',
@@ -69,4 +100,4 @@ const fetchMembersListAPI = (projectID) => {
         method: 'GET',
     })
 };
-export { fetchProjectListAPI, fetchMembersListAPI, fetchGetUserAPI, fetchAddUserAPI, fetchProjectCategoryAPI, fetchCreateProjectAPI, fetchDeleteProjectAPI, fetchRemoveUserFromProjectAPI, fetchProjectDetailAPI, fetchUpdateProjectDetailAPI };
+export { fetchProjectListAPI, fetchMembersListAPI, fetchGetUserAPI, fetchAddUserAPI, fetchProjectCategoryAPI, fetchCreateProjectAPI, fetchDeleteProjectAPI, fetchRemoveUserFromProjectAPI, fetchProjectDetailAPI, fetchUpdateProjectDetailAPI, fetchProjectPriorityAPI, fetchProjectTaskTypeAPI, fetchProjectStatusIdAPI, fetchCreateTaskAPI };

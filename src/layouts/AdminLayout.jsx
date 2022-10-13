@@ -4,13 +4,14 @@ import {
 } from "@ant-design/icons";
 import { Navigate, NavLink, Route, useLocation, } from 'react-router-dom';
 import { USER_INFO_KEY } from "constants/common";
-import { setUserInfoAction } from "store/actions/user.action";
+import { setEditDataProject, setUserInfoAction } from "store/actions/user.action";
 
 import { Breadcrumb, Layout, Menu, Image, Space } from "antd";
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.scss";
+import CreateTaskForm from "CreateTask/CreateTaskForm";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -26,7 +27,7 @@ function getItem(label, key, icon, children, type) {
 const items = [
   // getItem('Create Task', '/', <PlusOutlined />),
   getItem('Project Management', '/project-management/project', <SearchOutlined />),
-  getItem('Create Project', '/project-management/', <PlusOutlined />),
+  getItem('Create Task', 'callCreateTask', <PlusOutlined />),
   // getItem('User Management', '/project-management/project', <SearchOutlined />),
 ]
 
@@ -69,7 +70,26 @@ function AdminLayout() {
           style={{ backgroundColor: 'transparent' }}
           items={items}
           selectedKeys={[pathname]}
-          onClick={MenuClick}
+          onClick={({ key }) => {
+            if (key === 'callCreateTask') {
+              dispatch(setEditDataProject(
+                {
+                  title: 'Create Task',
+                  setOpen: true,
+                  infor: <CreateTaskForm />,
+                  data: {
+                    id: 'hanh',
+                    projectName: 'hanh',
+                    creator: 'hanh',
+                    description: 'hanh',
+                    categoryId: 'hanh'
+                  },
+                }));
+            }
+            else {
+              navigate(key)
+          }
+          }}
         />
       </Sider>
       <Layout className="site-layout" >

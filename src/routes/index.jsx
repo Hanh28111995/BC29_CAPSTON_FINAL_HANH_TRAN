@@ -59,6 +59,10 @@ export default function Router() {
               path: "/project-management/board",
               element: <MBoard />,
             },
+            {
+              path: "/project-management/project-detail/:projectId",
+              element: <MBoard />,
+            },
           ]
         },
 

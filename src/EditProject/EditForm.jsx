@@ -36,10 +36,10 @@ function EditForm(props) {
     })
 
     useEffect(() => {
-    
+
         dispatch(setEditSubmit(submitForm))
     }, [])
-    
+
 
     useEffect(() => {
         // console.log(values)
@@ -64,7 +64,7 @@ function EditForm(props) {
                         <p className='font-weight-bold'>Project Id</p>
                         <input disabled className='form-control' name='id'
                             value={values.id}
-                        onChange={handleChange}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -72,7 +72,7 @@ function EditForm(props) {
                     <div className='form-group'>
                         <p className='font-weight-bold'>Project Name</p>
                         <input className='form-control' name='projectName'
-                            value={values.projectName} 
+                            value={values.projectName}
                             onChange={handleChange} />
                     </div>
                 </div>
@@ -80,7 +80,7 @@ function EditForm(props) {
                     <div className='form-group'>
                         <p className='font-weight-bold'>Category</p>
                         <select name="categoryId" className='form-control'
-                            defaultValue={values.categoryId} 
+                            defaultValue={values.categoryId}
                             onChange={handleChange}>
                             {
                                 userState?.category.map((item, index) => {
@@ -95,7 +95,7 @@ function EditForm(props) {
                         <p className='font-weight-bold'>Description</p>
                         <Editor
                             name='description'
-                            initialValue={values.description}
+                            value={values.description}
                             init={{
                                 height: 500,
                                 menubar: false,
@@ -136,15 +136,15 @@ const CreateProjectForm = withFormik({
     }),
     handleSubmit: async (values, { props, setSubmitting }) => {
 
-          try {
+        try {
             props.setLoadingState(true);
-            await fetchUpdateProjectDetailAPI(props.projectEdit.id ,values);
+            await fetchUpdateProjectDetailAPI(props.projectEdit.id, values);
             props.setLoadingState(false);
-          }
-          catch
-          {
+        }
+        catch
+        {
             console.log("HELLO");
-          }
+        }
     },
     displayName: 'CreateProjectFormit',
 })(EditForm)
