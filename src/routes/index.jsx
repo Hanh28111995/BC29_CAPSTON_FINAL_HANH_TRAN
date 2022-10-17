@@ -8,6 +8,7 @@ import { useRoutes, Navigate } from "react-router-dom";
 import ProjectTable from "modules/project-table/ProjectTable";
 import CreateProjectTable from "pages/CreateProject/CreateProject";
 import MBoard from "pages/ProjectDetail/MBoard";
+import DetailBoard from "pages/ProjectDetail/DetailBoard";
 
 const Login = lazy(() => import("pages/login/Login"));
 const AuthGuards = lazy(() => import("guards/auth.guards"));
@@ -61,7 +62,7 @@ export default function Router() {
             },
             {
               path: "/project-management/project-detail/:projectId",
-              element: <MBoard />,
+              element: <DetailBoard />,
             },
           ]
         },

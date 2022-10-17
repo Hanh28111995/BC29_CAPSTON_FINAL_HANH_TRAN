@@ -2,7 +2,7 @@ import { LoadingContext } from "contexts/loading.context";
 import { useContext } from "react";
 import { fetchCreateProjectAPI } from "services/project";
 import { USER_INFO_KEY } from "../../constants/common";
-import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA,  SET_SUBMIT, SET_MY_PROJECT } from "../types/user.type";
+import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA, SET_SUBMIT, SET_MY_PROJECT, SET_TASK_DETAIL } from "../types/user.type";
 
 let userInfor = localStorage.getItem(USER_INFO_KEY);
 if (userInfor) {
@@ -15,7 +15,7 @@ const DEFAULT_STATE = {
   list: [],
   category: [],
   detail: {
-    title:'',
+    title: '',
     setOpen: false,
     infor: <hr />,
     data: {
@@ -42,6 +42,43 @@ const DEFAULT_STATE = {
   },
   callBackSubmit: (propsValue) => { alert('edit demo') },
   myProject: [],
+
+  taskDetailModal: {
+    priorityTask: {
+      priorityId: 1,
+      priority: 'High'
+    },
+    taskTypeDetail: {
+      id: 1,
+      taskType: 'bug',
+    },
+    assigness: [
+      {
+        id: 2664,
+        avatar: 'https://ui-avatars.com/api/?name=Vo Thanh Nam',
+        name: 'Vo Thanh Nam',
+        alias: 'vo - thanh - nam'
+      },
+      {
+        id: 2664,
+        avatar: 'https://ui-avatars.com/api/?name=Vo Thanh Nam',
+        name: 'Vo Thanh Nam',
+        alias: 'vo - thanh - nam'
+      }
+    ],
+    lstComment: [],
+    taskId: 5999,
+    taskName: 'Gau Gau',
+    alias: 'gau - gau',
+    description: '<p>stringxxxx</p>',
+    statusId: '2',
+    originalEstimate: 1,
+    timeTrackingSpent: 4,
+    timeTrackingRemaining: 8,
+    typeId: 1,
+    priorityId: 2,
+    projectId: 8018
+  },
 };
 export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
   switch (type) {
@@ -73,6 +110,10 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
     }
     case SET_MY_PROJECT: {
       state.myProject = payload;
+      return { ...state };
+    }
+    case SET_TASK_DETAIL: {
+      state.taskDetailModal = payload;
       return { ...state };
     }
 

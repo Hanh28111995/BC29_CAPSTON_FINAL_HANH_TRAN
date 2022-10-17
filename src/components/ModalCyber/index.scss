@@ -1,0 +1,14 @@
+.task-title {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+
+    select {
+        background: none;
+        border: none;
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}

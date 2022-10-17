@@ -100,4 +100,61 @@ const fetchMembersListAPI = (projectID) => {
         method: 'GET',
     })
 };
-export { fetchProjectListAPI, fetchMembersListAPI, fetchGetUserAPI, fetchAddUserAPI, fetchProjectCategoryAPI, fetchCreateProjectAPI, fetchDeleteProjectAPI, fetchRemoveUserFromProjectAPI, fetchProjectDetailAPI, fetchUpdateProjectDetailAPI, fetchProjectPriorityAPI, fetchProjectTaskTypeAPI, fetchProjectStatusIdAPI, fetchCreateTaskAPI };
+
+const fetchGetTaskDetailAPI = (taskID) => {
+    return request({
+        url: `Project/getTaskDetail?taskId=${taskID}`,
+        method: 'GET',
+    })
+};
+
+
+const fetchUpdateStatusAPI = (data) => {
+    return request({
+        url: '/Project/updateStatus',
+        method: 'PUT',
+        data,
+    })
+}
+
+const fetchUpdatePriorityAPI = (data) => {
+    return request({
+        url: '/Project/updatePriority',
+        method: 'PUT',
+        data,
+    })
+}
+
+const fetchUpdateDescriptionAPI = (data) => {
+    return request({
+        url: '/Project/updateDescription',
+        method: 'PUT',
+        data,
+    })
+}
+
+const fetchUpdateTimeTrackingAPI = (data) => {
+    return request({
+        url: '/Project/updateTimeTracking',
+        method: 'PUT',
+        data,
+    })
+}
+
+const fetchUpdateEstimateAPI = (data) => {
+    return request({
+        url: '/Project/updateEstimate',
+        method: 'PUT',
+        data,
+    })
+}
+const fetchUpdateAllOfTaskAPI = (data) => {
+    return request({
+        url: '/Project/updateTask',
+        method: 'POST',
+        data,
+    })
+}
+
+
+export {fetchUpdateAllOfTaskAPI, fetchUpdateStatusAPI, fetchUpdateEstimateAPI, fetchUpdateTimeTrackingAPI, fetchUpdateDescriptionAPI, fetchUpdatePriorityAPI, fetchProjectListAPI, fetchMembersListAPI, fetchGetUserAPI, fetchAddUserAPI, fetchProjectCategoryAPI, fetchCreateProjectAPI, fetchDeleteProjectAPI, fetchRemoveUserFromProjectAPI, fetchProjectDetailAPI, fetchUpdateProjectDetailAPI, fetchProjectPriorityAPI, fetchProjectTaskTypeAPI, fetchProjectStatusIdAPI, fetchCreateTaskAPI, fetchGetTaskDetailAPI, }

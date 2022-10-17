@@ -1,60 +1,67 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { fetchGetTaskDetailAPI } from 'services/project';
+import { setTaskDetail } from 'store/actions/user.action';
+import { LoadingContext } from 'contexts/loading.context';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function ContentMain(props) {
+  const dispatch = useDispatch();
+  const [_, setLoadingState] = useContext(LoadingContext);
   const { projectDetail } = props
+  const fetchDetailTask = async (x) => {
+    setLoadingState({ isLoading: true });
+    const result = await fetchGetTaskDetailAPI(x);
+    setLoadingState({ isLoading: false });
+    console.log(result.data.content)
+    dispatch(setTaskDetail(result.data.content));
+  }
+
   const renderCard = () => {
     return projectDetail?.lstTask?.map((taskListDetail, index) => {
       return (
-        <div key={index} className="card" style={{ width: '17rem', height: '25rem' }}>
+        <div key={index} className="card pb-2" style={{ width: '17rem', height: 'auto' }}>
           <div className="card-header">
             {taskListDetail.statusName}
           </div>
           <ul className="list-group list-group-flush">
-            <li className="list-group-item" data-toggle="modal" data-target="#infoModal" style={{ cursor: 'pointer' }}>
-              <p>
-                Each issue has a single reporter but can have multiple
-                assignees
-              </p>
-              <div className="block" style={{ display: 'flex' }}>
-                <div className="block-left">
-                  <i className="fa fa-bookmark" />
-                  <i className="fa fa-arrow-up" />
-                </div>
-                <div className="block-right">
-                  <div className="avatar-group" style={{ display: 'flex' }}>
-                    <div className="avatar">
-                      <img src={require("../../assets/img/download (1).jfif")} />
+            {taskListDetail.lstTaskDeTail.map((task, index) => {
+              return (
+                //////VI TRI LAY DETAIL TASK
+                <li key={index} className="list-group-item" data-toggle="modal" data-target="#infoModal" style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    fetchDetailTask(task.taskId)
+                  }}>
+                  <p className='font-weight-300'>
+                    {(task.taskTypeDetail.id === 2) ? <i className="fa-solid fa-bookmark"></i> : ((task.taskTypeDetail.id === 1) ? <i className="fa-solid fa-circle-exclamation" style={{ color: 'red' }}></i> : '')}
+                    &nbsp;
+                    {task.taskName}
+                  </p>
+                  <div className="block" style={{ display: 'flex' }}>
+                    <div className="block-left">
+                      <p className='text-danger'>{task.priorityTask.priority}</p>
+                      {/* <i className="fa fa-bookmark" />
+                      <i className="fa fa-arrow-up" /> */}
                     </div>
-                    <div className="avatar">
-                      <img src={require("../../assets/img/download (2).jfif")} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            {/* <li className="list-group-item">
-              <p>
-                Each issue has a single reporter but can have multiple
-                assignees
-              </p>
-              <div className="block" style={{ display: 'flex' }}>
-                <div className="block-left">
-                  <i className="fa fa-check-square" />
-                  <i className="fa fa-arrow-up" />
-                </div>
-                <div className="block-right">
-                  <div className="avatar-group" style={{ display: 'flex' }}>
-                    <div className="avatar">
-                      <img src={require("../../assets/img/download (1).jfif")} />
-                    </div>
-                    <div className="avatar">
-                      <img src={require("../../assets/img/download (2).jfif")} />
+                    <div className="block-right">
+                      <div className="avatar-group" style={{ display: 'flex' }}>
+                        {
+                          task.assigness?.map((mem, index) => {
+                            return (
+                              <div className="avatar" key={index}>
+                                <img src={mem.avatar} alt={mem.avatar} />
+                              </div>
+                            )
+                          })
+                        }
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </li>
-            <li className="list-group-item">Vestibulum at eros</li> */}
+                </li>
+              )
+            })}
+
           </ul>
         </div>
       )
@@ -63,35 +70,6 @@ function ContentMain(props) {
   return (
     <div className="content" style={{ display: 'flex' }}>
       {renderCard()}
-
-      {/* <div className="card" style={{ width: '17rem', height: '25rem' }}>
-        <div className="card-header">
-          SELECTED FOR DEVELOPMENT 2
-        </div>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">Cras justo odio</li>
-          <li className="list-group-item">Dapibus ac facilisis in</li>
-        </ul>
-      </div>
-      <div className="card" style={{ width: '17rem', height: '25rem' }}>
-        <div className="card-header">
-          IN PROGRESS 2
-        </div>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">Cras justo odio</li>
-          <li className="list-group-item">Dapibus ac facilisis in</li>
-        </ul>
-      </div>
-      <div className="card" style={{ width: '17rem', height: '25rem' }}>
-        <div className="card-header">
-          DONE 3
-        </div>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">Cras justo odio</li>
-          <li className="list-group-item">Dapibus ac facilisis in</li>
-          <li className="list-group-item">Vestibulum at eros</li>
-        </ul>
-      </div> */}
     </div>
   )
 }

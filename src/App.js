@@ -6,12 +6,14 @@ import Router from "./routes";
 import { Suspense, useState } from "react";
 import { LoadingProvider } from "./contexts/loading.context";
 import ModalEdit from "pages/Modal/ModalEdit";
+import ModalDetailTask from "components/ModalCyber/ModalDetailTask";
 
 function App() {
   return (
     <BrowserRouter>
       <Suspense fallback={<></>}>
         <LoadingProvider>
+          <ModalDetailTask/>
           <ModalEdit />
           <Router />
         </LoadingProvider>

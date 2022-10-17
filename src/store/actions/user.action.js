@@ -1,4 +1,4 @@
-import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA, SET_SUBMIT, SET_MY_PROJECT } from "../types/user.type";
+import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA, SET_SUBMIT, SET_MY_PROJECT, SET_TASK_DETAIL } from "../types/user.type";
 const setUserInfoAction = (data) => {
     return {
         type: SET_USER_INFO,
@@ -45,5 +45,11 @@ const setMyProject = (data) => {
         payload: data,
     }
 };
+const setTaskDetail = (data) => {
+    return {
+        type:  SET_TASK_DETAIL,
+        payload: data,
+    }
+};
 
-export { setUserInfoAction, setDate, userSearch, setCategory, setEditDataProject, setEditSubmit, setMyProject }
+export { setUserInfoAction, setDate, userSearch, setCategory, setEditDataProject, setEditSubmit, setMyProject, setTaskDetail }

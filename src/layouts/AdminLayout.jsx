@@ -4,14 +4,17 @@ import {
 } from "@ant-design/icons";
 import { Navigate, NavLink, Route, useLocation, } from 'react-router-dom';
 import { USER_INFO_KEY } from "constants/common";
-import { setEditDataProject, setUserInfoAction } from "store/actions/user.action";
+import { setEditDataProject, setMyProject, setUserInfoAction } from "store/actions/user.action";
 
-import { Breadcrumb, Layout, Menu, Image, Space } from "antd";
+import { Breadcrumb, Layout, Menu, Image, Space, notification } from "antd";
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.scss";
 import CreateTaskForm from "CreateTask/CreateTaskForm";
+import { fetchProjectListAPI } from "services/project";
+import { useAsync } from "hooks/useAsync";
+import { useEffect } from "react";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -40,6 +43,19 @@ function AdminLayout() {
   const MenuClick = (value) => {
     navigate(value.key);
   }
+  const { state: data = [] } = useAsync({
+    dependencies: [],
+    service: () => fetchProjectListAPI(),
+  })
+  useEffect(() => {
+    if (data.length !== 0) {
+      let DATA = data.filter((ele) => {
+        return ele.creator.id === userState.userInfor.id
+      })
+      dispatch(setMyProject(DATA));
+    }
+
+  }, [data]);
   const handleLogout = () => {
     localStorage.removeItem(USER_INFO_KEY);
     dispatch(setUserInfoAction(null));
@@ -72,23 +88,30 @@ function AdminLayout() {
           selectedKeys={[pathname]}
           onClick={({ key }) => {
             if (key === 'callCreateTask') {
-              dispatch(setEditDataProject(
-                {
-                  title: 'Create Task',
-                  setOpen: true,
-                  infor: <CreateTaskForm />,
-                  data: {
-                    id: 'hanh',
-                    projectName: 'hanh',
-                    creator: 'hanh',
-                    description: 'hanh',
-                    categoryId: 'hanh'
-                  },
-                }));
+              if (userState.myProject.length !== 0) {
+                dispatch(setEditDataProject(
+                  {
+                    title: 'Create Task',
+                    setOpen: true,
+                    infor: <CreateTaskForm />,
+                    data: {
+                      id: 'hanh',
+                      projectName: 'hanh',
+                      creator: 'hanh',
+                      description: 'hanh',
+                      categoryId: 'hanh'
+                    },
+                  }));
+              }
+              else {
+                notification.warning({
+                  description: 'Please create your project !',
+                })
+              }
             }
             else {
               navigate(key)
-          }
+            }
           }}
         />
       </Sider>

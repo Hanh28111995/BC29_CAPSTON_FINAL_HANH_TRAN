@@ -50,25 +50,24 @@ function CreateTaskForm(props) {
         }
         setLoadingState({ isLoading: false });
     }
-    const [toggle, setToggle] = useState(false);
 
     const { state: data = [] } = useAsync({
-        dependencies: [toggle],
+        dependencies: [],
         service: () => fetchProjectListAPI(),
     })
 
     const { state: data1 = [] } = useAsync({
-        dependencies: [toggle],
+        dependencies: [],
         service: () => fetchProjectTaskTypeAPI(),
     })
 
     const { state: data2 = [] } = useAsync({
-        dependencies: [toggle],
+        dependencies: [],
         service: () => fetchProjectPriorityAPI(),
     })
 
     const { state: data3 = [] } = useAsync({
-        dependencies: [toggle],
+        dependencies: [],
         service: () => fetchProjectStatusIdAPI(),
     })
 
@@ -116,18 +115,16 @@ function CreateTaskForm(props) {
             setProjectList(DATA);
             dispatch(setMyProject(DATA));
             dispatch(userSearch(DATA[0]?.members));
-
         }
+        
         if (data1.length !== 0) {
             setProjectTaskType(data1);
-            console.log(data1)
         }
         if (data2.length !== 0) {
             setProjectPriority(data2);
         }
         if (data3.length !== 0) {
             setStatusId(data3);
-            console.log(data3)
         }
     }, [data]);
 
@@ -181,15 +178,16 @@ function CreateTaskForm(props) {
                     </div>
                     <div className='col-6'>
                         <p className='font-weight-bold'>Task Type</p>
-                        <select name="typeId" className='form-control' onChange={handleChange}>
+                        <select name="typeId" className='form-control' onChange={handleChange} >
                             {arrTaskType.map((taskType, index) => {
-                                return <option key={index} value={taskType.id}>{taskType.taskType}</option>
+                                return <option key={index} value={taskType.id}> {taskType.taskType}  </option>
                             })}
                         </select>
                     </div>
                 </div>
+                {/* {(taskType==='task')? (<i className="fa fa-bookmark" aria-hidden="true"></i>) : (<i className="fa-solid fa-circle-exclamation text-red"></i>)} */}
             </div>
-           
+
             <div className='form-group'>
                 <div className='row'>
                     <div className='col-6'>
@@ -207,18 +205,18 @@ function CreateTaskForm(props) {
                             }
                             optionFilterProp="label"
                             options={listOption}
-                            onSearch={(value) => {
-                                if (searchRef.current) {
-                                    clearTimeout(searchRef.current);
-                                }
-                                searchRef.current = setTimeout(() => {
-                                    fetchGetUser(value);
-                                }, 500)
-                            }}
-                        // onSelect={(value) => {
-                        //     console.log(value)
-                        // }
-                        // }
+                            // onSearch={(value) => {
+                            //     if (searchRef.current) {
+                            //         clearTimeout(searchRef.current);
+                            //     }
+                            //     searchRef.current = setTimeout(() => {
+                            //         fetchGetUser(value);
+                            //     }, 500)
+                            // }}
+                            onSelect={(value) => {
+                                console.log(value)
+                            }
+                            }
                         >
                             {children}
                         </Select>
@@ -299,7 +297,6 @@ function CreateTaskForm(props) {
 const CreateTaskFormFormik = withFormik({
     enableReinitialize: true,
     mapPropsToValues: (props) => {
-        console.log(props.myProject)
         return {
             taskName: '',
             description: '',
@@ -320,8 +317,8 @@ const CreateTaskFormFormik = withFormik({
         console.log(values)
         try {
             props.setLoadingState(true);
-            // await fetchCreateTaskAPI(values);
-            console.log(values)
+            await fetchCreateTaskAPI(values);
+            console.log(values);
             props.setLoadingState(false);
         }
         catch

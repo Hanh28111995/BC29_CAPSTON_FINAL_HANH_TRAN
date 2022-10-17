@@ -100,6 +100,7 @@ function ProjectTable() {
   useEffect(() => {
     if (data.length !== 0) {
       setProjectList(data);
+      // console.log(data)
     }
   }, [data]);
 
