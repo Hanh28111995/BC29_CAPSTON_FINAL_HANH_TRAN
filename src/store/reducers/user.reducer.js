@@ -2,7 +2,7 @@ import { LoadingContext } from "contexts/loading.context";
 import { useContext } from "react";
 import { fetchCreateProjectAPI } from "services/project";
 import { USER_INFO_KEY } from "../../constants/common";
-import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA, SET_SUBMIT, SET_MY_PROJECT, SET_TASK_DETAIL } from "../types/user.type";
+import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA, SET_SUBMIT, SET_MY_PROJECT, SET_TASK_DETAIL, SET_RENDER_DETAIL, SET_PROJECT_MEMLIST } from "../types/user.type";
 
 let userInfor = localStorage.getItem(USER_INFO_KEY);
 if (userInfor) {
@@ -42,7 +42,8 @@ const DEFAULT_STATE = {
   },
   callBackSubmit: (propsValue) => { alert('edit demo') },
   myProject: [],
-
+  reRenderDetail: true,
+  projectMemList: [],
   taskDetailModal: {
     priorityTask: {
       priorityId: 1,
@@ -114,6 +115,14 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
     }
     case SET_TASK_DETAIL: {
       state.taskDetailModal = payload;
+      return { ...state };
+    }
+    case SET_RENDER_DETAIL: {
+      state.reRenderDetail = payload;
+      return { ...state };
+    }
+    case SET_PROJECT_MEMLIST: {
+      state.projectMemList = payload;
       return { ...state };
     }
 

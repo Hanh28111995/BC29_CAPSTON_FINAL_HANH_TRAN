@@ -8,23 +8,34 @@ import { fetchProjectDetailAPI } from 'services/project';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import parse from 'html-react-parser';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProjectMemList, setReRenderDetail } from 'store/actions/user.action';
 
 function DetailBoard() {
   const param = useParams();
+  const dispatch = useDispatch()
+  const userState = useSelector(state => state.userReducer)
   const [projectDetail, setProjectDetail] = useState({})
   const { state: data = [] } = useAsync({
-    dependencies: [],
+    dependencies: [userState.reRenderDetail],
     service: () => fetchProjectDetailAPI(param.projectId),
   })
 
   useEffect(() => {
     if (data.length !== 0) {
-      console.log(data);
       setProjectDetail(data)
+      dispatch(setProjectMemList(data.members))
       console.log(data)
     }
 
-  }, [data.lstTask])
+  }, [data])
+
+  useEffect(() => {
+    if (data.length !== 0) {
+      dispatch(setReRenderDetail(true))
+    }
+  }, [userState.reRenderDetail])
+
   return (
     <div className='main'>
       <h3>{projectDetail?.projectName}</h3>
@@ -34,10 +45,10 @@ function DetailBoard() {
         }
       </section>
       <InfoMain members={projectDetail?.members} />
-      <ContentMain projectDetail={projectDetail}/>
+      <ContentMain projectDetail={projectDetail} />
     </div>
 
-    
+
 
   )
 }

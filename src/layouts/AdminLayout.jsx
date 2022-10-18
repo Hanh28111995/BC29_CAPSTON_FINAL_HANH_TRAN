@@ -1,6 +1,9 @@
 import {
   PlusOutlined,
   SearchOutlined,
+  FolderAddOutlined,
+  FileAddOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { Navigate, NavLink, Route, useLocation, } from 'react-router-dom';
 import { USER_INFO_KEY } from "constants/common";
@@ -30,8 +33,9 @@ function getItem(label, key, icon, children, type) {
 const items = [
   // getItem('Create Task', '/', <PlusOutlined />),
   getItem('Project Management', '/project-management/project', <SearchOutlined />),
-  getItem('Create Task', 'callCreateTask', <PlusOutlined />),
-  // getItem('User Management', '/project-management/project', <SearchOutlined />),
+  getItem('Create Project', '/project-management/create-project', <FolderAddOutlined />),
+  getItem('Create Task', 'callCreateTask', <FileAddOutlined />),
+  getItem('Log Out', 'logOut', <LogoutOutlined />),
 ]
 
 function AdminLayout() {
@@ -54,8 +58,8 @@ function AdminLayout() {
       })
       dispatch(setMyProject(DATA));
     }
-
   }, [data]);
+
   const handleLogout = () => {
     localStorage.removeItem(USER_INFO_KEY);
     dispatch(setUserInfoAction(null));
@@ -110,15 +114,18 @@ function AdminLayout() {
               }
             }
             else {
-              navigate(key)
+              if (key === 'logOut') {
+                handleLogout();
+              }
+              else {
+                navigate(key);
+              }
             }
           }}
         />
       </Sider>
       <Layout className="site-layout" >
-        {/* /// sửa cái layout này, mà sao giờ localstỏage mỗi lần khởi động nó trống trơn
-        no vẫn có kìa a
-         */}
+
         <Space
         >
           <Menu

@@ -117,14 +117,6 @@ const fetchUpdateStatusAPI = (data) => {
     })
 }
 
-const fetchUpdatePriorityAPI = (data) => {
-    return request({
-        url: '/Project/updatePriority',
-        method: 'PUT',
-        data,
-    })
-}
-
 const fetchUpdateDescriptionAPI = (data) => {
     return request({
         url: '/Project/updateDescription',
@@ -141,13 +133,6 @@ const fetchUpdateTimeTrackingAPI = (data) => {
     })
 }
 
-const fetchUpdateEstimateAPI = (data) => {
-    return request({
-        url: '/Project/updateEstimate',
-        method: 'PUT',
-        data,
-    })
-}
 const fetchUpdateAllOfTaskAPI = (data) => {
     return request({
         url: '/Project/updateTask',
@@ -155,6 +140,11 @@ const fetchUpdateAllOfTaskAPI = (data) => {
         data,
     })
 }
+const fetchDeleteTaskAPI = (taskID) => {
+    return request({
+        url: `/Project/removeTask?taskId=${taskID}`,
+        method: 'DELETE',
+    })
+}
 
-
-export {fetchUpdateAllOfTaskAPI, fetchUpdateStatusAPI, fetchUpdateEstimateAPI, fetchUpdateTimeTrackingAPI, fetchUpdateDescriptionAPI, fetchUpdatePriorityAPI, fetchProjectListAPI, fetchMembersListAPI, fetchGetUserAPI, fetchAddUserAPI, fetchProjectCategoryAPI, fetchCreateProjectAPI, fetchDeleteProjectAPI, fetchRemoveUserFromProjectAPI, fetchProjectDetailAPI, fetchUpdateProjectDetailAPI, fetchProjectPriorityAPI, fetchProjectTaskTypeAPI, fetchProjectStatusIdAPI, fetchCreateTaskAPI, fetchGetTaskDetailAPI, }
+export {fetchDeleteTaskAPI ,fetchUpdateAllOfTaskAPI, fetchUpdateStatusAPI, fetchUpdateTimeTrackingAPI, fetchUpdateDescriptionAPI, fetchProjectListAPI, fetchMembersListAPI, fetchGetUserAPI, fetchAddUserAPI, fetchProjectCategoryAPI, fetchCreateProjectAPI, fetchDeleteProjectAPI, fetchRemoveUserFromProjectAPI, fetchProjectDetailAPI, fetchUpdateProjectDetailAPI, fetchProjectPriorityAPI, fetchProjectTaskTypeAPI, fetchProjectStatusIdAPI, fetchCreateTaskAPI, fetchGetTaskDetailAPI, }

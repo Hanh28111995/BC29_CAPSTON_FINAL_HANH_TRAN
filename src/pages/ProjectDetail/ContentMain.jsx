@@ -29,12 +29,12 @@ function ContentMain(props) {
             {taskListDetail.lstTaskDeTail.map((task, index) => {
               return (
                 //////VI TRI LAY DETAIL TASK
-                <li key={index} className="list-group-item" data-toggle="modal" data-target="#infoModal" style={{ cursor: 'pointer' }}
+                <li  key={index} className="list-group-item" data-toggle="modal" data-target="#infoModal" style={{ cursor: 'pointer' }}
                   onClick={() => {
                     fetchDetailTask(task.taskId)
                   }}>
                   <p className='font-weight-300'>
-                    {(task.taskTypeDetail.id === 2) ? <i className="fa-solid fa-bookmark"></i> : ((task.taskTypeDetail.id === 1) ? <i className="fa-solid fa-circle-exclamation" style={{ color: 'red' }}></i> : '')}
+                    {(task.taskTypeDetail.id === 2) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-solid fa-circle-exclamation" style={{ color: 'red' }}></i>)}
                     &nbsp;
                     {task.taskName}
                   </p>

@@ -203,16 +203,18 @@ function ProjectTable() {
                     )
                   }}>
                     <Image key={item.userId} src={item.avatar} height={30} preview={false} style={{ borderRadius: '50%' }} />
+                    {
+                      ((index === 2) && (members?.length > 3)) ? <Avatar>...</Avatar> : ''
+                    }
                   </Popover>
                 )
               })
             }
-            {
-              members?.length > 3 ? <Avatar>...</Avatar> : ''
-            }
+
             {
               <Popover placement='topLeft' title={'Add User'} content={() => {
                 return <AutoComplete
+                
                   options={userState.list?.map((user, index) => {
                     return { label: user.name, value: user.userId.toString() }
                   })}
@@ -230,7 +232,7 @@ function ProjectTable() {
                     setToggle(!toggle);
                   }
                   }
-                  style={{ width: '100%' }} 
+                  style={{ width: '100%' }}
                   onSearch={(value) => {
                     if (searchRef.current) {
                       clearTimeout(searchRef.current);

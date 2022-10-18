@@ -8,9 +8,7 @@ import { useContext } from 'react';
 import { useEffect } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { fetchUpdateProjectDetailAPI } from 'services/project';
-import { fetchProjectCategoryAPI } from 'services/project';
-import { setCategory, setEditDataProject, setEditSubmit, setMyProject, userSearch } from 'store/actions/user.action';
+import { setEditSubmit, setMyProject, userSearch } from 'store/actions/user.action';
 import * as Yup from 'yup';
 import { Input, Radio, Select, Slider } from 'antd';
 import { useState } from 'react';
@@ -18,7 +16,6 @@ import { fetchProjectListAPI } from "services/project";
 import { fetchProjectTaskTypeAPI } from "services/project";
 import { fetchProjectPriorityAPI } from "services/project";
 import { useRef } from "react";
-import { fetchGetUserAPI } from "services/project";
 import { fetchCreateTaskAPI } from "services/project";
 import { fetchProjectStatusIdAPI } from "services/project";
 import { fetchMembersListAPI } from "services/project";
@@ -78,7 +75,7 @@ function CreateTaskForm(props) {
 
 
 
-
+    const [OriginalTime, setOriginalTime] = useState(0)
     const [TimeTracking, setTimeTracking] = useState({
         timeTrackingSpent: 0,
         timeTrackingRemaining: 0,
@@ -116,7 +113,7 @@ function CreateTaskForm(props) {
             dispatch(setMyProject(DATA));
             dispatch(userSearch(DATA[0]?.members));
         }
-        
+
         if (data1.length !== 0) {
             setProjectTaskType(data1);
         }
@@ -223,14 +220,20 @@ function CreateTaskForm(props) {
                         <div className="row">
                             <div className="col-12" style={{ marginTop: '27px' }}>
                                 <p className='font-weight-bold'>Original Estimate</p>
-                                <input className="form-control" type='number' min='0' defaultValue='0' name="originalEstimate" onChange={handleChange} />
-
+                                <input className="form-control" type='number' min='0' defaultValue='0' name="originalEstimate" onChange={(e) => {
+                                    setOriginalTime(e.target.value);
+                                    setFieldValue('originalEstimate', e.target.value);
+                                }} 
+                                onBlur={(e) => { setFieldValue('timeTrackingRemaining', Number(OriginalTime) - Number(TimeTracking.timeTrackingSpent)) }} 
+                                />
                             </div>
                         </div>
                     </div>
                     <div className='col-6'>
                         <p className='font-weight-bold'>Time Tracking</p>
-                        <Slider defaultValue={30} value={TimeTracking.timeTrackingSpent} max={Number(TimeTracking.timeTrackingSpent) + Number(TimeTracking.timeTrackingRemaining)} />
+                        <Slider defaultValue={30} value={TimeTracking.timeTrackingSpent}
+                            max={Number(OriginalTime)}
+                        />
                         <div className="row">
                             <div className="col-6 text-left note-font">{TimeTracking.timeTrackingSpent || '0'}h logged</div>
                             <div className="col-6 text-right note-font">{TimeTracking.timeTrackingRemaining || '0'}h remaining</div>
@@ -238,24 +241,20 @@ function CreateTaskForm(props) {
                         <div className="row mt-3">
                             <div className="col-6">
                                 <p className='font-weight-bold'>Time spent </p>
-                                <input className="form-control" type='number' name="timeTrackingSpent" onChange={(e) => {
+                                <input className="form-control" type='number' name="timeTrackingSpent" defaultValue='0' onChange={(e) => {
+                                    let x = Number(OriginalTime) - Number(TimeTracking.timeTrackingSpent);
                                     setTimeTracking({
-                                        ...TimeTracking,
+                                        timeTrackingRemaining: x,
                                         timeTrackingSpent: e.target.value,
                                     });
                                     setFieldValue('timeTrackingSpent', e.target.value);
-
-                                }} />
+                                }}
+                                    onBlur={(e) => { setFieldValue('timeTrackingRemaining', Number(OriginalTime) - Number(TimeTracking.timeTrackingSpent)) }} />
                             </div>
                             <div className="col-6">
                                 <p className='font-weight-bold'>Time remain </p>
-                                <input className="form-control" type='number' name="timeTrackingRemaining" onChange={(e) => {
-                                    setTimeTracking({
-                                        ...TimeTracking,
-                                        timeTrackingRemaining: e.target.value,
-                                    });
-                                    setFieldValue('timeTrackingRemaining', e.target.value);
-                                }} />
+                                <input className="form-control" type='number' value={Number(OriginalTime) - Number(TimeTracking.timeTrackingSpent)} disabled name="timeTrackingRemaining"
+                                />
                             </div>
                         </div>
                     </div>

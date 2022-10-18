@@ -1,4 +1,5 @@
 import { ConfigContext } from 'antd/lib/config-provider';
+import { Space, Table, Input, Button, Image, Tag, Avatar, Popover, AutoComplete } from 'antd';
 import React, { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import parse from 'html-react-parser';
@@ -15,11 +16,13 @@ import { fetchUpdateEstimateAPI } from 'services/project';
 import { fetchUpdateTimeTrackingAPI } from 'services/project';
 import { useNavigate } from 'react-router-dom';
 import { fetchGetTaskDetailAPI } from 'services/project';
-import { setTaskDetail } from 'store/actions/user.action';
+import { reRender, setReRenderDetail, setTaskDetail } from 'store/actions/user.action';
 import { fetchProjectTaskTypeAPI } from 'services/project';
 import { fetchUpdateAllOfTaskAPI } from 'services/project';
 import './index.scss'
 import { Editor } from '@tinymce/tinymce-react';
+import { fetchDeleteTaskAPI } from 'services/project';
+// const { Search } = Input;
 
 function ModalDetailTask() {
   const navigate = useNavigate();
@@ -59,42 +62,24 @@ function ModalDetailTask() {
     }
   }, [data3])
   /////////////////////////////////////////////////////////////////
-  const fetchTypeTaskChange = async (data) => {
-    try {
-      setLoadingState({ isLoading: true });
-      await fetchUpdateAllOfTaskAPI(data);
-      setLoadingState({ isLoading: false });
-      // dispatch(setTaskDetail(result.data.content));
-    }
-    catch (error) {
-      console.log(error)
-    }
-  }
-
-
   const fetchDetailTask = async (x) => {
     setLoadingState({ isLoading: true });
     const result = await fetchGetTaskDetailAPI(x);
     setLoadingState({ isLoading: false });
     dispatch(setTaskDetail(result.data.content));
+    dispatch(setReRenderDetail(false))
+  }
+
+  const fetchTypeTaskChange = async (data) => {
+    setLoadingState({ isLoading: true });
+    await fetchUpdateAllOfTaskAPI(data);
+    setLoadingState({ isLoading: false });
+    fetchDetailTask(taskDetailModal.taskId);
   }
 
   const fetchStatusChange = async (x) => {
     setLoadingState({ isLoading: true });
     await fetchUpdateStatusAPI(x);
-    setLoadingState({ isLoading: false });
-    fetchDetailTask(taskDetailModal.taskId);
-  }
-  const fetchPriorityChange = async (x) => {
-    setLoadingState({ isLoading: true });
-    await fetchUpdatePriorityAPI(x);
-    setLoadingState({ isLoading: false });
-    fetchDetailTask(taskDetailModal.taskId);
-  }
-
-  const fetchUpdateEstimateChange = async (x) => {
-    setLoadingState({ isLoading: true });
-    await fetchUpdateEstimateAPI(x);
     setLoadingState({ isLoading: false });
     fetchDetailTask(taskDetailModal.taskId);
   }
@@ -105,11 +90,128 @@ function ModalDetailTask() {
     setLoadingState({ isLoading: false });
     fetchDetailTask(taskDetailModal.taskId);
   }
-  /////////////////////////////////////////////////////////////////
 
+  const fetchDeleteTask = async (x) => {
+    setLoadingState({ isLoading: true });
+    await fetchDeleteTaskAPI(x);
+    setLoadingState({ isLoading: false });
+    dispatch(setReRenderDetail(false));
+  }
+  /////////////////////////////////////////////////////////////////
+  const [value, setValue] = useState('');
+  const renderMemList = () => {
+    return (
+
+      <div >
+        {
+          taskDetailModal.assigness.map((mem, index) => {
+            return (
+              <div key={index} style={{ display: 'flex' }} className="item justify-content-center mb-1">
+                <div className="avatar">
+                  <img src={mem.avatar} />
+                </div>
+                <p className="name mt-1 ml-1 text-center" style={{ fontSize: '14px' }}>
+                  {mem.name}&nbsp;
+                  <button className='delete-btn'><i className="fa fa-times" style={{ marginRight: 5 }}
+                    onClick={() => {
+                    }}
+                  />
+                  </button>
+                </p>
+              </div>
+            )
+          })
+        }
+
+        {
+          <Popover placement='top' title={'Add User'} content={() => {
+            return <AutoComplete
+            placeholder="Search with `V`"
+              options={taskDetailModal.projectMemList?.map((user, index) => {
+                return { label: user.name, value: user.userId }
+              })}
+              value={value}
+              
+              onChange={(text) => {
+                setValue(text);
+                console.log(text)
+              }}
+              onSelect={(value, option) => {
+                setValue(option.label);
+                // fetchAddUser({
+                //   'projectId': props.id,
+                //   'userId': option.value,
+                // });
+                // setToggle(!toggle);
+              }
+              }
+              style={{ width: '100%' }}
+              onSearch={(value) => {
+                // if (searchRef.current) {
+                //   clearTimeout(searchRef.current);
+                // }
+                // searchRef.current = setTimeout(() => {
+                //   fetchGetUser(value);
+                  console.log(value);
+                // }, 500)
+              }}
+            />
+          }} trigger='click'>
+            <Button className='add-btn'>+ Add More</Button>
+          </Popover>
+        }
+      </div>
+    )
+  }
+
+  const [updateDescription, setUpdateDescription] = useState('');
+  const [visibleEditor, setVisibleEditor] = useState(false);
+  const renderDescription = () => {
+    const jsxDes = parse(` ${taskDetailModal.description} `);
+    return (
+      <>
+        {
+          visibleEditor ?
+            <div>
+              <Editor
+                name='description'
+                initialValue={taskDetailModal.description}
+                init={{
+                  height: 500,
+                  menubar: false,
+                  plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                  ],
+                  toolbar: 'undo redo | formatselect | ' +
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat | help',
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                }}
+                onEditorChange={(content, edittor) => {
+                  setUpdateDescription(content);
+                }}
+              />
+              <button className='btn btn-primary m-2'
+                onClick={() => {
+                  setVisibleEditor(false);
+                  let listmem = taskDetailModal;
+                  listmem.description = updateDescription;
+                  fetchTypeTaskChange(listmem);
+                }}>Save</button>
+
+              <button className='btn btn-primary m-2' onClick={() => { setVisibleEditor(false) }}>Close</button>
+            </div>
+            : <div onClick={() => { setVisibleEditor(!visibleEditor) }}> {jsxDes}</div>
+        }
+      </>
+    )
+  }
   const renderTimeTracking = () => {
-    const { timeTrackingSpent, timeTrackingRemaining } = taskDetailModal;
-    const max = Number(timeTrackingSpent) + Number(timeTrackingRemaining);
+    const { timeTrackingSpent, timeTrackingRemaining, originalEstimate } = taskDetailModal;
+    const max = Number(originalEstimate);
     const percent = Math.round(Number(timeTrackingSpent) / max * 100)
     return (
       <div className='container'>
@@ -122,17 +224,27 @@ function ModalDetailTask() {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <p className="logged">{timeTrackingSpent}h logged</p>
-              <p className="estimate-time">{timeTrackingRemaining}h remaining</p>
+              <p className="estimate-time">{max - Number(timeTrackingSpent)}h remaining</p>
             </div>
           </div>
         </div>
 
         <div className='row' >
           <div className=' col-6'>
-            <input className='form-control' />
+            <input className='form-control' value={timeTrackingSpent} name='timeTrackingSpent' onChange={(e) => {
+              let listmem = taskDetailModal;
+              listmem.timeTrackingSpent = e.target.value || 0;
+              fetchTypeTaskChange(listmem);
+            }}
+              onBlur={() => {
+                let listmem = taskDetailModal;
+                listmem.timeTrackingRemaining = max - Number(timeTrackingSpent);
+                fetchTypeTaskChange(listmem);
+              }}
+            />
           </div>
           <div className=' col-6'>
-            <input className='form-control' />
+            <input className='form-control' value={max - Number(timeTrackingSpent)} name='timeTrackingRemaining' disabled />
           </div>
 
         </div>
@@ -146,33 +258,23 @@ function ModalDetailTask() {
         <div className="modal-content">
           <div className="modal-header">
             <div className="task-title" >
-              {(taskDetailModal.taskTypeDetail.id === 2) ? <i className="fa-solid fa-bookmark ml-4"></i> : ((taskDetailModal.taskTypeDetail.id === 1) ? <i className="fa-solid fa-circle-exclamation ml-4" style={{ color: 'red' }}></i> : '')}
-              <select className="custom-select" value={taskDetailModal.taskTypeDetail.id}
-                onChange={(e) => {
-                  let listmem = taskDetailModal.assigness.map((item, index) => {
-                    return item.id              
-                  })
-                  fetchTypeTaskChange({
-                    taskId: taskDetailModal.taskId,
-                    typeId: e.target.value,
-                    listUserAsign: listmem,
-                    taskName: taskDetailModal.statusId,
-                    description: taskDetailModal.description,
-                    statusId: taskDetailModal.statusId,
-                    originalEstimate: taskDetailModal.originalEstimate,
-                    timeTrackingSpent: taskDetailModal.timeTrackingSpent,
-                    timeTrackingRemaining: taskDetailModal.timeTrackingRemaining,
-                    projectId: taskDetailModal.projectId,
-                    priorityId: taskDetailModal.priorityId,
-                  })
-                }}
-              >
-                {arrTaskType.map((item, index) => {
-                  return (
-                    <option key={index} value={item.id}>{(item.taskType === 'new task') ? 'Task' : 'Bug'}</option>
-                  )
-                })}
-              </select>
+              <div className='taskType_boder'>
+                {(taskDetailModal.taskTypeDetail.id === 2) ? <i className="fa-solid fa-bookmark ml-4"></i> : ((taskDetailModal.taskTypeDetail.id === 1) ? <i className="fa-solid fa-circle-exclamation ml-4" style={{ color: 'red' }}></i> : '')}
+                <select className="custom-select" value={taskDetailModal.taskTypeDetail.id}
+                  onChange={(e) => {
+                    let listmem = taskDetailModal;
+                    listmem.typeId = e.target.value;
+                    fetchTypeTaskChange(listmem)
+                  }}
+                >
+                  {arrTaskType.map((item, index) => {
+                    return (
+                      <option key={index} value={item.id}>{(item.taskType === 'new task') ? 'Task' : 'Bug'}</option>
+                    )
+                  })}
+                </select>
+              </div>
+              <h5 className='ml-3 mb-0'>{taskDetailModal.taskName}</h5>
             </div>
             <div style={{ display: 'flex' }} className="task-click">
               <div>
@@ -183,8 +285,10 @@ function ModalDetailTask() {
                 <i className="fa fa-link mr-1" />
                 <span style={{ paddingRight: 20 }}>Copy link</span>
               </div>
-              <i className="fa fa-trash-alt" style={{ cursor: 'pointer', paddingTop: '2px' }} />
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close" style={{ fontSize: '20px' }} onClick={() => { fetchDeleteTask(taskDetailModal.taskId) }}>
+                <i className="fa fa-trash-alt" />
+              </button>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => { setVisibleEditor(false) }}>
                 <span aria-hidden="true">×</span>
               </button>
             </div>
@@ -194,30 +298,9 @@ function ModalDetailTask() {
               <div className="row">
                 <div className="col-8">
                   <p className="issue">This is an issue of type: {(taskDetailModal.taskTypeDetail.taskType === 'new task') ? 'Task' : 'Bug'}.</p>
-                  <div className="description">
+                  <div className="description mb-4" onBlur={() => { setVisibleEditor(false) }} tabIndex='1'>
                     <p>Description</p>
-                    <Editor
-                      name='description'
-                      initialValue={taskDetailModal.description}
-                      init={{
-                        height: 500,
-                        menubar: false,
-                        plugins: [
-                          'advlist autolink lists link image charmap print preview anchor',
-                          'searchreplace visualblocks code fullscreen',
-                          'insertdatetime media table paste code help wordcount'
-                        ],
-                        toolbar: 'undo redo | formatselect | ' +
-                          'bold italic backcolor | alignleft aligncenter ' +
-                          'alignright alignjustify | bullist numlist outdent indent | ' +
-                          'removeformat | help',
-                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                      }}
-                    // onEditorChange={handleEditorChange}
-                    />
-                    {/* <section>
-                      {parse(` ${taskDetailModal.description} `)}
-                    </section> */}
+                    {renderDescription()}
                   </div>
 
                   <div className="comment">
@@ -282,48 +365,15 @@ function ModalDetailTask() {
                   </div>
                   <div className="assignees mb-3">
                     <h6>ASSIGNEES</h6>
-                    <div style={{ display: 'flex', flexDirection: 'column ' }}>
-                      {
-                        taskDetailModal.assigness.map((mem, index) => {
-                          return (
-                            <div key={index} style={{ display: 'flex' }} className="item justify-content-center mb-1">
-                              <div className="avatar">
-                                <img src={mem.avatar} />
-                              </div>
-                              <p className="name mt-1 ml-1 text-center" style={{ fontSize: '14px' }}>
-                                {mem.name}&nbsp;
-                                <i className="fa fa-times" style={{ marginRight: 5 }} />
-                              </p>
-                            </div>
-                          )
-                        })
-                      }
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <i className="fa fa-plus" style={{ marginRight: 5 }} /><span>Add more</span>
-                    </div>
+                    {renderMemList()}
                   </div>
-
-                  {/* <div className="reporter">
-                    <h6>REPORTER</h6>
-                    <div style={{ display: 'flex' }} className="item">
-                      <div className="avatar">
-                        <img src={require('../../assets/img/download (1).jfif')} />
-                      </div>
-                      <p className="name">
-                        Pickle Rick
-                        <i className="fa fa-times" style={{ marginLeft: 5 }} />
-                      </p>
-                    </div>
-                  </div> */}
 
                   <div className="priority" style={{ marginBottom: 20 }}>
                     <h6>PRIORITY</h6>
                     <select className="custom-select" value={taskDetailModal.priorityId} onChange={(e) => {
-                      fetchPriorityChange({
-                        taskId: taskDetailModal.taskId,
-                        priorityId: e.target.value,
-                      })
+                      let listmem = taskDetailModal;
+                      listmem.priorityId = e.target.value;
+                      fetchTypeTaskChange(listmem);
                     }}>
                       {arrPriority.map((item, index) => {
                         return (
@@ -335,12 +385,18 @@ function ModalDetailTask() {
 
                   <div className="estimate">
                     <h6>ORIGINAL ESTIMATE (HOURS)</h6>
-                    <input type="text" className="estimate-hours" value={taskDetailModal.originalEstimate} onChange={(e) => {
-                      fetchUpdateEstimateChange({
-                        taskId: taskDetailModal.taskId,
-                        originalEstimate: e.target.value,
-                      })
-                    }} />
+                    <input type="text" className="estimate-hours" value={taskDetailModal.originalEstimate}
+                      onChange={(e) => {
+                        let listmem = taskDetailModal;
+                        listmem.originalEstimate = e.target.value || 0;
+                        fetchTypeTaskChange(listmem);
+                      }}
+                      onBlur={() => {
+                        let listmem = taskDetailModal;
+                        listmem.timeTrackingRemaining = Number(taskDetailModal.originalEstimate) - Number(taskDetailModal.timeTrackingSpent);
+                        fetchTypeTaskChange(listmem);
+                      }}
+                    />
                   </div>
                   <div className="time-tracking">
                     <h6>TIME TRACKING</h6>

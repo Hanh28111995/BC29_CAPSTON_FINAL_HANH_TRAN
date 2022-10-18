@@ -1,14 +1,38 @@
 .task-title {
     display: flex;
-    align-items: center;
-    border: 1px solid #ced4da;
     border-radius: 0.25rem;
+    align-items: center;
+
+
+    .taskType_boder {
+        display: flex;
+        border: 1px solid #ced4da;
+        align-items: center;
+        border-radius: 7px;
+    }
 
     select {
         background: none;
         border: none;
+
         &:focus {
             box-shadow: none;
         }
     }
+}
+.delete-btn{
+    border: none;
+    outline: none;
+    &:focus
+    {
+        border: none;
+        outline: none;
+    }
+}
+.add-btn {
+    border-radius: 10px !important;
+    width: 60%;
+}
+.ant-popover {
+    z-index: 1060 !important;
 }
