@@ -9,6 +9,8 @@ import ProjectTable from "modules/project-table/ProjectTable";
 import CreateProjectTable from "pages/CreateProject/CreateProject";
 import MBoard from "pages/ProjectDetail/MBoard";
 import DetailBoard from "pages/ProjectDetail/DetailBoard";
+import UserTable from "modules/user-table/UserTable";
+import EditUser from "pages/EditUser/EditUser";
 
 const Login = lazy(() => import("pages/login/Login"));
 const AuthGuards = lazy(() => import("guards/auth.guards"));
@@ -48,6 +50,18 @@ export default function Router() {
           path: "/project-management",
           element: <AdminLayout />,
           children: [
+            {
+              path: "/project-management/user",
+              element: <UserTable />,
+            },
+            {
+              path: "/project-management/UserEdit/:userId",
+              element: <EditUser />,
+            },
+            {
+              path: "/project-management/UserCreate",
+              element: <EditUser />,
+            },
             {
               path: "/project-management/project",
               element: <ProjectTable />,

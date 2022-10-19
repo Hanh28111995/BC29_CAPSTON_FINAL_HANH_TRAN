@@ -100,7 +100,6 @@ function ProjectTable() {
   useEffect(() => {
     if (data.length !== 0) {
       setProjectList(data);
-      // console.log(data)
     }
   }, [data]);
 
@@ -267,7 +266,7 @@ function ProjectTable() {
     const keyword = value;
     let DT = data.filter((ele) => {
       return (
-        removeVietnameseTones(ele.tenPhim)
+        removeVietnameseTones(ele.projectName)
           .toLowerCase()
           .trim()
           .indexOf(removeVietnameseTones(keyword).toLowerCase().trim()) !== -1
@@ -280,7 +279,7 @@ function ProjectTable() {
     <>
       <Space direction="vertical" className='mb-3' style={{ width: "100%" }}>
         <Search
-          placeholder="Movie search "
+          placeholder="Project's name search "
           onSearch={onSearch}
         />
       </Space>

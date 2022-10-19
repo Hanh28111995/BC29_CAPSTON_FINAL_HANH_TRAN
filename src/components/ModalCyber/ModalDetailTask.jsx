@@ -269,7 +269,7 @@ function ModalDetailTask() {
     // <!-- Info Modal -->
     <Modal title="Task Detail" open={userState.setTaskModal} onCancel={handleCancel} footer={true}>
 
-      <div className="modal-header p-0 mb-4" style={{alignItems:'center',borderBottom: 'none'}}>
+      <div className="modal-header p-0 mb-4" style={{ alignItems: 'center', borderBottom: 'none' }}>
         <div className="task-title" >
           <div className='taskType_boder'>
             {(taskDetailModal.taskTypeDetail.id === 2) ? <i className="fa-solid fa-bookmark ml-4"></i> : ((taskDetailModal.taskTypeDetail.id === 1) ? <i className="fa-solid fa-circle-exclamation ml-4" style={{ color: 'red' }}></i> : '')}
@@ -299,10 +299,10 @@ function ModalDetailTask() {
             <i className="fa fa-link mr-1" />
             <span style={{ paddingRight: 20 }}>Copy link</span>
           </div>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close" style={{ fontSize: '20px' }} onClick={() => { fetchDeleteTask(taskDetailModal.taskId) }}>
+          <button type="button" className="close" style={{ fontSize: '20px' }} onClick={() => { fetchDeleteTask(taskDetailModal.taskId); handleCancel() }}>
             <i className="fa fa-trash-alt" />
           </button>
-          
+
         </div>
       </div>
       <div className="modal-body">
@@ -310,8 +310,8 @@ function ModalDetailTask() {
           <div className="row">
             <div className="col-8">
               <p className="issue">This is an issue of type: {(taskDetailModal.taskTypeDetail.taskType === 'new task') ? 'Task' : 'Bug'}.</p>
-              <div className="description mb-4" onBlur={() => { setVisibleEditor(false) }} tabIndex='1'>
-                <p>Description</p>
+              <div className="description" onBlur={() => { setVisibleEditor(false) }} tabIndex='1'>
+                <h6>Description</h6>
                 {renderDescription()}
               </div>
 

@@ -20,10 +20,29 @@ const registerApi = (data) => {
 const userListApi = ()=> {
 
   return request({
-    url: `/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${GROUP_ID}`,
+    url: '/Users/getUser',
     method: 'GET',
 })
 };
+
+const deleteUserApi = (tk) => {
+  return request({
+    url: `Users/deleteUser?id=${tk}`,
+    method: 'DELETE',
+  });
+}
+
+const updateUserApi = (data) => {
+  return request({
+    url: 'Users/editUser',
+    method: 'PUT',
+    data,
+  });
+}
+
+
+
+
 
 const userDetailApi = (tk) =>{
   return request({
@@ -41,18 +60,7 @@ const addUserApi = (data) => {
   });
 };
 
-const updateUserApi = (data) => {
-  return request({
-    url: '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
-    method: 'POST',
-    data,
-  });
-}
-  const deleteUserApi = (tk) => {
-    return request({
-      url: `/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${tk}`,
-      method: 'DELETE',
-    });
-  }
+
+  
 
 export { loginAPI, registerApi , userListApi, userDetailApi, addUserApi, updateUserApi, deleteUserApi};

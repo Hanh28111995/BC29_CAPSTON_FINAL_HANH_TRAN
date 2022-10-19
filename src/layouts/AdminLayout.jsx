@@ -1,5 +1,5 @@
 import {
-  PlusOutlined,
+  TeamOutlined,
   SearchOutlined,
   FolderAddOutlined,
   FileAddOutlined,
@@ -31,7 +31,7 @@ function getItem(label, key, icon, children, type) {
   };
 }
 const items = [
-  // getItem('Create Task', '/', <PlusOutlined />),
+  getItem('User Management', '/project-management/user', <TeamOutlined />),
   getItem('Project Management', '/project-management/project', <SearchOutlined />),
   getItem('Create Project', '/project-management/create-project', <FolderAddOutlined />),
   getItem('Create Task', 'callCreateTask', <FileAddOutlined />),
