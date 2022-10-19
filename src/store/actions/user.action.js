@@ -1,4 +1,4 @@
-import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA, SET_SUBMIT, SET_MY_PROJECT, SET_TASK_DETAIL, SET_RENDER_DETAIL, SET_PROJECT_MEMLIST } from "../types/user.type";
+import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA, SET_SUBMIT, SET_MY_PROJECT, SET_TASK_DETAIL, SET_RENDER_DETAIL, SET_PROJECT_MEMLIST, SET_TASK_MODAL } from "../types/user.type";
 const setUserInfoAction = (data) => {
     return {
         type: SET_USER_INFO,
@@ -63,5 +63,12 @@ const setProjectMemList = (data) => {
         payload: data,
     }
 };
+const setTaskModal = (data) => {
+    return {
+        type: SET_TASK_MODAL,
+        payload: data,
+    }
+};
 
-export { setUserInfoAction, setDate, userSearch, setCategory, setEditDataProject, setEditSubmit, setMyProject, setTaskDetail, setReRenderDetail, setProjectMemList }
+
+export { setUserInfoAction, setDate, userSearch, setCategory, setEditDataProject, setEditSubmit, setMyProject, setTaskDetail, setReRenderDetail, setProjectMemList, setTaskModal }

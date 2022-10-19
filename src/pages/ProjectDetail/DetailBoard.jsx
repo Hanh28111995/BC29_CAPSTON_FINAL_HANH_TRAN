@@ -25,7 +25,6 @@ function DetailBoard() {
     if (data.length !== 0) {
       setProjectDetail(data)
       dispatch(setProjectMemList(data.members))
-      console.log(data)
     }
 
   }, [data])

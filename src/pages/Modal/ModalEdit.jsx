@@ -21,7 +21,7 @@ function ModalEdit() {
     const onSave = () => {
         userState.callBackSubmit();
         onClose();
-        navigate(0);
+        // navigate(0);
     }
     const onClose = () => {
         dispatch(setEditDataProject(

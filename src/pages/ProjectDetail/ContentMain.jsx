@@ -1,7 +1,7 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchGetTaskDetailAPI } from 'services/project';
-import { setTaskDetail } from 'store/actions/user.action';
+import { setTaskDetail, setTaskModal } from 'store/actions/user.action';
 import { LoadingContext } from 'contexts/loading.context';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,9 +14,10 @@ function ContentMain(props) {
     setLoadingState({ isLoading: true });
     const result = await fetchGetTaskDetailAPI(x);
     setLoadingState({ isLoading: false });
-    console.log(result.data.content)
     dispatch(setTaskDetail(result.data.content));
   }
+  const userState = useSelector((state) => state.userReducer);
+
 
   const renderCard = () => {
     return projectDetail?.lstTask?.map((taskListDetail, index) => {
@@ -31,6 +32,7 @@ function ContentMain(props) {
                 //////VI TRI LAY DETAIL TASK
                 <li  key={index} className="list-group-item" data-toggle="modal" data-target="#infoModal" style={{ cursor: 'pointer' }}
                   onClick={() => {
+                    dispatch(setTaskModal(true))
                     fetchDetailTask(task.taskId)
                   }}>
                   <p className='font-weight-300'>

@@ -2,7 +2,7 @@ import { LoadingContext } from "contexts/loading.context";
 import { useContext } from "react";
 import { fetchCreateProjectAPI } from "services/project";
 import { USER_INFO_KEY } from "../../constants/common";
-import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA, SET_SUBMIT, SET_MY_PROJECT, SET_TASK_DETAIL, SET_RENDER_DETAIL, SET_PROJECT_MEMLIST } from "../types/user.type";
+import { SET_USER_INFO, SET_DATE, SEARCH_USER, DEFAULT_CATEGORY, SET_EDIT_DATA, SET_SUBMIT, SET_MY_PROJECT, SET_TASK_DETAIL, SET_RENDER_DETAIL, SET_PROJECT_MEMLIST, SET_TASK_MODAL } from "../types/user.type";
 
 let userInfor = localStorage.getItem(USER_INFO_KEY);
 if (userInfor) {
@@ -11,6 +11,7 @@ if (userInfor) {
 // const [_, setLoadingState] = useContext(LoadingContext);
 const DEFAULT_STATE = {
   userInfor,
+  setTaskModal: false,
   date: '',
   list: [],
   category: [],
@@ -26,24 +27,11 @@ const DEFAULT_STATE = {
       categoryId: "string"
     },
   },
-  task: {
-    listUserAsign: [
-      0
-    ],
-    taskName: 'string',
-    description: 'string',
-    statusId: 'string',
-    originalEstimate: 0,
-    timeTrackingSpent: 0,
-    timeTrackingRemaining: 0,
-    projectId: 0,
-    typeId: 0,
-    priorityId: 0
-  },
   callBackSubmit: (propsValue) => { alert('edit demo') },
   myProject: [],
   reRenderDetail: true,
   projectMemList: [],
+
   taskDetailModal: {
     priorityTask: {
       priorityId: 1,
@@ -125,7 +113,11 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
       state.projectMemList = payload;
       return { ...state };
     }
-
+    case SET_TASK_MODAL: {
+      state.setTaskModal = payload;
+      return { ...state };
+    }
+    
     default:
       return state;
   }
