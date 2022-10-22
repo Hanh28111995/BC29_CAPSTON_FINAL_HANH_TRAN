@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { BASE_URL, TOKEN_CYBERSOFT, USER_INFO_KEY } from '../constants/common';
+import { BASE_URL, TOKEN_CYBERSOFT, USER_KEY } from '../constants/common';
 
-let userInfor = localStorage.getItem(USER_INFO_KEY);
+let userInfor = localStorage.getItem(USER_KEY);
 if (userInfor) {
     userInfor = JSON.parse(userInfor);
 }
@@ -16,7 +16,7 @@ export const request = axios.create({
 })
 
 request.interceptors.request.use((config) => {
-    let userInfor = localStorage.getItem(USER_INFO_KEY);
+    let userInfor = localStorage.getItem(USER_KEY);
     if (userInfor) {
         userInfor = JSON.parse(userInfor);
     }

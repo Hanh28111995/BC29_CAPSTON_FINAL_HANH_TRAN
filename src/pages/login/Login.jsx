@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { USER_INFO_KEY } from "../../constants/common";
+import { USER_KEY } from "../../constants/common";
 import { loginAPI } from "services/user";
 import { setUserInfoAction } from "../../store/actions/user.action";
 import { notification } from "antd";
@@ -27,7 +27,7 @@ export default function Login() {
     try {
       const result = await loginAPI(state);
       console.log(result)
-      localStorage.setItem(USER_INFO_KEY, JSON.stringify(result.data.content));
+      localStorage.setItem(USER_KEY, JSON.stringify(result.data.content));
       dispatch(setUserInfoAction(result.data.content));
       notification.success({
         description: ` Log in success`,
@@ -93,7 +93,7 @@ export default function Login() {
                     type="text"
                     className="form-control"
                   />
-                  <span><i className="fa-solid fa-user" style={{color:'navy'}}></i></span>
+                  <span><i className="fa-solid fa-user" style={{ color: 'navy' }}></i></span>
                 </div>
                 <div className="form-group">
                   <label>Password</label>
@@ -103,7 +103,7 @@ export default function Login() {
                     type="text"
                     className="form-control"
                   />
-                  <span><i className="fa-solid fa-lock" style={{color:'navy'}}></i></span>
+                  <span><i className="fa-solid fa-lock" style={{ color: 'navy' }}></i></span>
                 </div>
                 <button className=" my-3 btn btn-primary w-100">LOGIN</button>
               </form>

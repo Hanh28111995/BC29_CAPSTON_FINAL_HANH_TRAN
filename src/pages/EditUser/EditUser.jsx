@@ -6,5 +6,4 @@ function EditUser() {
     <UserForm/>
   )
 }
-
 export default EditUser

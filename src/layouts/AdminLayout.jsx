@@ -6,7 +6,7 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 import { Navigate, NavLink, Route, useLocation, } from 'react-router-dom';
-import { USER_INFO_KEY } from "constants/common";
+import { USER_KEY } from "constants/common";
 import { setEditDataProject, setMyProject, setUserInfoAction } from "store/actions/user.action";
 
 import { Breadcrumb, Layout, Menu, Image, Space, notification } from "antd";
@@ -61,7 +61,7 @@ function AdminLayout() {
   }, [data]);
 
   const handleLogout = () => {
-    localStorage.removeItem(USER_INFO_KEY);
+    localStorage.removeItem(USER_KEY);
     dispatch(setUserInfoAction(null));
     navigate('/login');
   }
