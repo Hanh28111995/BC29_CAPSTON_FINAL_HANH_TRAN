@@ -2,7 +2,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { setEditDataProject, setEditSubmit } from 'store/actions/user.action';
 import "./index.scss";
 const { Option } = Select;
@@ -11,7 +11,6 @@ function ModalEdit() {
     const userState = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     // const [open, setOpen] = useState(false);
 
     // const showDrawer = () => {
@@ -21,7 +20,6 @@ function ModalEdit() {
     const onSave = () => {
         userState.callBackSubmit();
         onClose();
-        navigate(0);
     }
     const onClose = () => {
         dispatch(setEditDataProject(
@@ -40,6 +38,8 @@ function ModalEdit() {
             }));
         dispatch(setEditSubmit((propsValue) => { alert('click demo') },
         ));
+        
+
     };
 
     return (

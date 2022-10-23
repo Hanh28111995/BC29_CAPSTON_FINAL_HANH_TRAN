@@ -10,7 +10,7 @@ import { connect, useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { setEditSubmit, setMyProject, userSearch } from 'store/actions/user.action';
 import * as Yup from 'yup';
-import { Input, Radio, Select, Slider } from 'antd';
+import { Input, notification, Radio, Select, Slider } from 'antd';
 import { useState } from 'react';
 import { fetchProjectListAPI } from "services/project";
 import { fetchProjectTaskTypeAPI } from "services/project";
@@ -223,8 +223,8 @@ function CreateTaskForm(props) {
                                 <input className="form-control" type='number' min='0' defaultValue='0' name="originalEstimate" onChange={(e) => {
                                     setOriginalTime(e.target.value);
                                     setFieldValue('originalEstimate', e.target.value);
-                                }} 
-                                onBlur={(e) => { setFieldValue('timeTrackingRemaining', Number(OriginalTime) - Number(TimeTracking.timeTrackingSpent)) }} 
+                                }}
+                                    onBlur={(e) => { setFieldValue('timeTrackingRemaining', Number(OriginalTime) - Number(TimeTracking.timeTrackingSpent)) }}
                                 />
                             </div>
                         </div>
@@ -319,10 +319,12 @@ const CreateTaskFormFormik = withFormik({
             await fetchCreateTaskAPI(values);
             console.log(values);
             props.setLoadingState(false);
+            props.navigate(0);
         }
-        catch
-        {
-            console.log("HELLO");
+        catch (err) {
+            notification.warning({
+                description: `${err.response.data.content}`,
+            });
         }
     },
     displayName: 'CreateTaskFormit',

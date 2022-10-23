@@ -13,7 +13,7 @@ import { removeVietnameseTones } from 'constants/common';
 import { fetchProjectListAPI } from 'services/project';
 import { LoadingContext } from 'contexts/loading.context';
 import { fetchGetUserAPI } from 'services/project';
-import { setEditDataProject, userSearch } from 'store/actions/user.action';
+import { setEditDataProject, setMyProject, userSearch } from 'store/actions/user.action';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAddUserAPI } from 'services/project';
 import { fetchDeleteProjectAPI } from 'services/project';
@@ -99,6 +99,10 @@ function ProjectTable() {
 
   useEffect(() => {
     if (data.length !== 0) {
+      let DATA = data.filter((ele) => {
+        return ele.creator.id === userState.userInfor.id
+      })
+      dispatch(setMyProject(DATA));
       setProjectList(data);
     }
   }, [data]);

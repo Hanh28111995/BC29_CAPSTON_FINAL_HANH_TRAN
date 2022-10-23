@@ -10,6 +10,7 @@ import { useState } from 'react';
 import parse from 'html-react-parser';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProjectMemList, setReRenderDetail } from 'store/actions/user.action';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 function DetailBoard() {
   const param = useParams();
@@ -25,6 +26,7 @@ function DetailBoard() {
     if (data.length !== 0) {
       setProjectDetail(data)
       dispatch(setProjectMemList(data.members))
+      // console.log(data)
     }
 
   }, [data])
@@ -45,6 +47,7 @@ function DetailBoard() {
       </section>
       <InfoMain members={projectDetail?.members} />
       <ContentMain projectDetail={projectDetail} />
+
     </div>
 
 
