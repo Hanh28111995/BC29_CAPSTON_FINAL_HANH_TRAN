@@ -36,7 +36,7 @@ export default function Login() {
     }
     catch (err) {
       notification.warning({
-        description: `${err.response.data.content}`,
+        description: `${err.response.data.message}`,
       });
     }
   }

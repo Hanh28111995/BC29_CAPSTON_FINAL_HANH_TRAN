@@ -8,12 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useState } from 'react';
 import _ from 'lodash';
+import { useEffect } from 'react';
 
 function ContentMain(props) {
   const dispatch = useDispatch();
   const [_, setLoadingState] = useContext(LoadingContext);
   const { projectDetail } = props
-
+  const [state, setState] = useState()
   const fetchDetailTask = async (x) => {
     setLoadingState({ isLoading: true });
     const result = await fetchGetTaskDetailAPI(x);
@@ -21,21 +22,37 @@ function ContentMain(props) {
     dispatch(setTaskDetail(result.data.content));
   }
   const userState = useSelector((state) => state.userReducer);
+
   const handleDragEnd = (result) => {
-    let {destination, source} = result;
-    if(!destination)
-    {
+    console.log(result);
+    let { destination, source } = result;
+    if (!destination) {
       return;
     }
-    if(destination.index === source.index && destination.droppableId === source.droppableId)
-    {
+    if (destination.index === source.index && destination.droppableId === source.droppableId) {
       return;
     };
-    // let itemCopy = {...state.[source.droppableId]};
-    // console.log('itemcopy', itemCopy)
-    // console.log(source);
+    let itemCopy = { ...state.lstTask[source.droppableId - 1].lstTaskDeTail[source.index] };
+    console.log('itemcopy', itemCopy)
+    let index = state.lstTask[source.droppableId-1].lstTaskDeTail.findIndex(item => item.taskId == itemCopy.taskId);
+
+    // // console.log('dropSource', dropSource)
+    state.lstTask[source.droppableId-1].lstTaskDeTail.splice(index,1); 
+
+    let dropDestination = state.lstTask[destination.droppableId-1].lstTaskDeTail;
+    dropDestination.splice(destination.index, 0, itemCopy)
+    setState(state)
+    console.log(destination);
+    console.log(source);
+
   }
-  const [state,setState] = useState(projectDetail)
+
+  useEffect(() => {
+    if (projectDetail) {
+      setState(projectDetail)
+      console.log(projectDetail)
+    }
+  }, [projectDetail])
 
   const renderCard = () => {
     return <DragDropContext onDragEnd={handleDragEnd}>

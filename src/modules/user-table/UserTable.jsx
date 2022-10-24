@@ -102,7 +102,7 @@ function UserTable() {
       <div className='text-left mb-3'>
         <Space direction="vertical" className='mb-3' style={{ width: "100%" }}>
           <Search
-            placeholder="ID search "
+            placeholder="User's mail search "
             onSearch={onSearch}
           />
         </Space>
