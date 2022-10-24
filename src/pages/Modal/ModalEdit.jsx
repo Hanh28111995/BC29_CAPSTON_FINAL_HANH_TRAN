@@ -11,15 +11,11 @@ function ModalEdit() {
     const userState = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const [open, setOpen] = useState(false);
-
-    // const showDrawer = () => {
-    //     setOpen(true);
-    //     console.log('click')
-    // };
+ 
     const onSave = () => {
         userState.callBackSubmit();
         onClose();
+        navigate(0);
     }
     const onClose = () => {
         dispatch(setEditDataProject(
@@ -38,8 +34,6 @@ function ModalEdit() {
             }));
         dispatch(setEditSubmit((propsValue) => { alert('click demo') },
         ));
-        
-
     };
 
     return (
