@@ -6,8 +6,6 @@ import {
   EditOutlined,
   DeleteOutlined,
   CloseCircleTwoTone,
-  CarryOutOutlined,
-  CloseOutlined,
 } from "@ant-design/icons";
 import { removeVietnameseTones } from 'constants/common';
 import { fetchProjectListAPI } from 'services/project';
