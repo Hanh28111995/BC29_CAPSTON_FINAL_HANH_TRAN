@@ -1,3 +1,4 @@
+import 'antd/dist/antd.min.css'
 import {
   TeamOutlined,
   SearchOutlined,
@@ -5,7 +6,7 @@ import {
   FileAddOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Navigate, NavLink, Route, useLocation, } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { USER_KEY } from "constants/common";
 import { setEditDataProject, setMyProject, setUserInfoAction } from "store/actions/user.action";
 
@@ -19,7 +20,7 @@ import { fetchProjectListAPI } from "services/project";
 import { useAsync } from "hooks/useAsync";
 import { useEffect } from "react";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -44,13 +45,14 @@ function AdminLayout() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(true);
-  const MenuClick = (value) => {
-    navigate(value.key);
-  }
+  // const MenuClick = (value) => {
+  //   navigate(value.key);
+  // }
   const { state: data = [] } = useAsync({
     dependencies: [],
     service: () => fetchProjectListAPI(),
   })
+
   useEffect(() => {
     if (data.length !== 0) {
       let DATA = data.filter((ele) => {

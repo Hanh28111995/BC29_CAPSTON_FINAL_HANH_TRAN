@@ -19,11 +19,6 @@ const AdminLayout = lazy(() => import("../layouts/AdminLayout"));
 
 export default function Router() {
   const routing = useRoutes([
-    // {
-    //   path: "/",
-    //   element: <HomeLayout />,
-    //   children: [
-
     {
       path: "/",
       element: <NoAuthGuards />,
@@ -48,7 +43,7 @@ export default function Router() {
       children: [
         {
           path: "/project-management",
-          element: <AdminLayout to="/project-management/board" />,
+          element: <AdminLayout />,
           children: [
             {
               path: "/project-management/user",

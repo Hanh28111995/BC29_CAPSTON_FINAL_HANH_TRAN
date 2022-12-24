@@ -32,7 +32,7 @@ export default function Login() {
       notification.success({
         description: ` Log in success`,
       })
-      navigate("/project-management");
+      navigate("/project-management/board");
     }
     catch (err) {
       notification.warning({
