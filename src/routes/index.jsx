@@ -48,7 +48,7 @@ export default function Router() {
       children: [
         {
           path: "/project-management",
-          element: <AdminLayout />,
+          element: <AdminLayout to="/project-management/board" />,
           children: [
             {
               path: "/project-management/user",
