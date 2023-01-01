@@ -114,7 +114,7 @@ const CreateProjectForm = withFormik({
       });
     }
 
-    props.navigate('/project-management/project')
+    props.navigate('/project-management/board')
     // console.log(props.navigate, "HELLO"); // cho nay goi dc navigate r ne a
   },
   displayName: 'CreateProjectFormit',

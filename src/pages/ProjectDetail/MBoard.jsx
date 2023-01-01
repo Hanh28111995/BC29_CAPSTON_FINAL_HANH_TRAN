@@ -63,7 +63,7 @@ function ProjectTable() {
       description: " Delete Successfully !",
     });
     setToggle(!toggle);
-    navigate("/project-management/project");
+    navigate("/project-management/board");
   }
 
   const handleEditProject = async (x) => {
@@ -97,7 +97,11 @@ function ProjectTable() {
 
   useEffect(() => {
     if (data.length !== 0) {
-      setProjectList(userState.myProject);
+      let DATA = data.filter((ele) => {
+        return ele.creator.id === userState.userInfor.id
+      })
+      dispatch(setMyProject(DATA));
+      setProjectList(DATA);        
     }
   }, [data]);
 
@@ -161,7 +165,6 @@ function ProjectTable() {
       dataIndex: 'members',
       key: 'members',
       render: (_, { members, ...props }) => {
-
         return (
           <>
             {
@@ -227,6 +230,15 @@ function ProjectTable() {
                   }
                   }
                   style={{ width: '100%' }}
+                  onSearch={(value) => {
+                    if (searchRef.current) {
+                      clearTimeout(searchRef.current);
+                    }
+                    searchRef.current = setTimeout(() => {
+                      fetchGetUser(value);
+                      // console.log(userState.list);
+                    }, 500)
+                  }}
                 />
               }} trigger='click'>
                 <Button shape='circle'>+</Button>
@@ -262,7 +274,12 @@ function ProjectTable() {
   }
 
   return (
-    <>
+    <div className='userProject'>
+     {
+      (ProjectList.length === 0)
+      ? (<h5 className='my-4 font-italic'>Your project not exist. Please create one !!!</h5>)
+      : (<></>)
+     }
       <div className='text-left mb-3'>
         <Button type='primary' onClick={() => navigate('/project-management/create-project')}>
           CREATE
@@ -270,7 +287,7 @@ function ProjectTable() {
       </div>
       <Table rowKey='id' columns={columns}
         dataSource={ProjectList} />
-    </>
+    </div>
   )
 }
 

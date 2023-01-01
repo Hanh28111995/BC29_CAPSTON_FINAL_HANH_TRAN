@@ -17,6 +17,7 @@ function DetailBoard() {
   const dispatch = useDispatch()
   const userState = useSelector(state => state.userReducer)
   const [projectDetail, setProjectDetail] = useState({})
+  
   const { state: data = [] } = useAsync({
     dependencies: [userState.reRenderDetail],
     service: () => fetchProjectDetailAPI(param.projectId),

@@ -59,6 +59,8 @@ function AdminLayout() {
         return ele.creator.id === userState.userInfor.id
       })
       dispatch(setMyProject(DATA));
+      if((pathname === '/project-management')||(pathname === '/project-management/'))
+      {navigate('/project-management/board')}
     }
   }, [data]);
 
