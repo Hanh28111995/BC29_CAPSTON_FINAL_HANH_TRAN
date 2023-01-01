@@ -165,10 +165,6 @@ function ProjectTable() {
       dataIndex: 'members',
       key: 'members',
       render: (_, { members, ...props }) => {
-        // console.log(members, props.id); // vậy chắc lấy data này đi, cái kia thì vô detail mới lấy cái kia, mà 2 cái nó khác nhau, hồi đầu a log ra cho e thấy đó
-        // em nghĩ là nó giống á, hồi đầu khác là a log ra 1 cái ở useEffect, 1 cái ở hàm fetch nên nó mới chưa update data trong useEfecgt á
-        // ở đây thì data nó giống nhau, trừ cái data ở trong đây nó ít hơn cái kia 2 field email với phoneNumbẻ thô
-        // hông phải chỗ này renders ra rồi hả a ? thì PrọectList = data mà
         return (
           <>
             {

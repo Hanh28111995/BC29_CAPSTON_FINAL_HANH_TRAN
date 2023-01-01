@@ -25,7 +25,7 @@ function UserTable() {
   })
 
   useEffect(() => {
-    if (data.length !== 0) { setuserlist(data); console.log(data) }
+    if (data.length !== 0) { setuserlist(data); }
 
   }, [data]);
 

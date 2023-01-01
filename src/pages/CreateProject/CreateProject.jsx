@@ -91,7 +91,7 @@ function CreateProjectTable(props) {
 const CreateProjectForm = withFormik({
   enableReinitialize: true,
   mapPropsToValues: (props) => {
-    console.log('props', props.ListCategory)
+    // console.log('props', props.ListCategory)
     return {
       projectName: '',
       description: '',

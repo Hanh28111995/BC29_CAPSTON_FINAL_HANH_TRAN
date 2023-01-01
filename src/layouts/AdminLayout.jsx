@@ -145,28 +145,15 @@ function AdminLayout() {
               },
               { label: <hr />, disabled: true },
               { label: 'Cyber Board', key: '/project-management/board', icon: <i className="fa-solid fa-credit-card"></i> },
-              { label: 'Project Settings', icon: <i className="fa-solid fa-gear"></i> },
+              { label: 'Project Settings', icon: <i className="fa-solid fa-gear"></i> , disabled: true},
               { label: <hr />, disabled: true },
-              { label: 'Releases', icon: <i className="fa-solid fa-truck"></i> },
-              { label: 'Issues and Filters', icon: <i className="fa-solid fa-equals"></i> },
-              { label: 'Pages', icon: <i className="fa-solid fa-paste"></i> },
-              { label: 'Reports', icon: <i className="fa-solid fa-location-arrow"></i> },
-              { label: 'Components', icon: <i className="fa-solid fa-box"></i> },
+              { label: 'Releases', icon: <i className="fa-solid fa-truck"></i> , disabled: true},
+              { label: 'Issues and Filters', icon: <i className="fa-solid fa-equals"></i> , disabled: true},
+              { label: 'Pages', icon: <i className="fa-solid fa-paste"></i> , disabled: true},
+              { label: 'Reports', icon: <i className="fa-solid fa-location-arrow"></i>,  disabled: true },
+              { label: 'Components', icon: <i className="fa-solid fa-box"></i> , disabled: true},
             ]}
           >
-
-            {/* <Menu.Item className=" d-flex align-items-center justify-content-between pl-2" >
-              <div className="ml-auto">
-                <p className="my-0 text-white d-inline-block pr-2">Xin chào! {userState.userInfor.name} </p>
-                <button
-                  onClick={handleLogout}
-                  className="btn btn-signup d-inline-block"
-                  type="sumit"
-                >
-                  Đăng xuất
-                </button>
-              </div>
-            </Menu.Item> */}
 
           </Menu>
           <Content

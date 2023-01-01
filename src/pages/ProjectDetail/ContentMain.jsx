@@ -42,15 +42,15 @@ function ContentMain(props) {
     let dropDestination = state.lstTask[destination.droppableId-1].lstTaskDeTail;
     dropDestination.splice(destination.index, 0, itemCopy)
     setState(state)
-    console.log(destination);
-    console.log(source);
+    // console.log(destination);
+    // console.log(source);
 
   }
 
   useEffect(() => {
     if (projectDetail) {
       setState(projectDetail)
-      console.log(projectDetail)
+      // console.log(projectDetail)
     }
   }, [projectDetail])
 
