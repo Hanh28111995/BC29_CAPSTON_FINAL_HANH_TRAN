@@ -59,8 +59,7 @@ function AdminLayout() {
         return ele.creator.id === userState.userInfor.id
       })
       dispatch(setMyProject(DATA));
-      if((pathname === '/project-management')||(pathname === '/project-management/'))
-      {navigate('/project-management/board')}
+      if ((pathname === '/project-management') || (pathname === '/project-management/')) { navigate('/project-management/board') }
     }
   }, [data]);
 
@@ -73,125 +72,127 @@ function AdminLayout() {
   // console.log(userState)
 
   return (
-    <Layout
-      style={{
-        minHeight: '100vh',
-      }}
-    >
-      <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={{ backgroundColor: '#05357e' }} >
-        <div className="logo" >
-          <a href="/">
-            <div className="sideBar-icon">
-              <i className="fa-brands fa-jira fa-lg"></i>
-            </div>
-          </a>
-        </div>
-        <Menu
-          defaultSelectedKeys={['/admin/movie-management']}
-          mode="inline"
-          theme="dark"
-          // inlineCollapsed={collapsed}
-          style={{ backgroundColor: 'transparent' }}
-          items={items}
-          selectedKeys={[pathname]}
-          onClick={({ key }) => {
-            if (key === 'callCreateTask') {
-              if (userState.myProject.length !== 0) {
-                dispatch(setEditDataProject(
-                  {
-                    title: 'Create Task',
-                    setOpen: true,
-                    infor: <CreateTaskForm />,
-                    data: {
-                      id: 'hanh',
-                      projectName: 'hanh',
-                      creator: 'hanh',
-                      description: 'hanh',
-                      categoryId: 'hanh'
-                    },
-                  }));
-              }
-              else {
-                notification.warning({
-                  description: 'Please create your project !',
-                })
-              }
-            }
-            else {
-              if (key === 'logOut') {
-                handleLogout();
-              }
-              else {
-                navigate(key);
-              }
-            }
-          }}
-        />
-      </Sider>
-      <Layout className="site-layout" >
-
-        <Space
-        >
+    <div className='wrapper'>
+      <Layout
+        style={{
+          minHeight: '100vh',
+        }}
+      >
+        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={{ backgroundColor: '#05357e' }} >
+          <div className="logo" >
+            <a href="/">
+              <div className="sideBar-icon">
+                <i className="fa-brands fa-jira fa-lg"></i>
+              </div>
+            </a>
+          </div>
           <Menu
-            selectedKeys={pathname}
+            defaultSelectedKeys={['/admin/movie-management']}
             mode="inline"
-            style={{
-              marginLeft: '50px', backgroundColor: '#f4f5f7', width: 200,
-            }}
+            theme="dark"
+            // inlineCollapsed={collapsed}
+            style={{ backgroundColor: 'transparent' }}
+            items={items}
+            selectedKeys={[pathname]}
             onClick={({ key }) => {
-              navigate(key)
+              if (key === 'callCreateTask') {
+                if (userState.myProject.length !== 0) {
+                  dispatch(setEditDataProject(
+                    {
+                      title: 'Create Task',
+                      setOpen: true,
+                      infor: <CreateTaskForm />,
+                      data: {
+                        id: 'hanh',
+                        projectName: 'hanh',
+                        creator: 'hanh',
+                        description: 'hanh',
+                        categoryId: 'hanh'
+                      },
+                    }));
+                }
+                else {
+                  notification.warning({
+                    description: 'Please create your project !',
+                  })
+                }
+              }
+              else {
+                if (key === 'logOut') {
+                  handleLogout();
+                }
+                else {
+                  navigate(key);
+                }
+              }
             }}
-            items={[
-              {
-                label: <Image src="https://cybersoft.edu.vn/wp-content/uploads/2021/03/logo-cyber-nav.svg" width={100} preview={false} />, disabled: true,
-              },
-              { label: <hr />, disabled: true },
-              { label: 'Cyber Board', key: '/project-management/board', icon: <i className="fa-solid fa-credit-card"></i> },
-              { label: 'Project Settings', icon: <i className="fa-solid fa-gear"></i> , disabled: true},
-              { label: <hr />, disabled: true },
-              { label: 'Releases', icon: <i className="fa-solid fa-truck"></i> , disabled: true},
-              { label: 'Issues and Filters', icon: <i className="fa-solid fa-equals"></i> , disabled: true},
-              { label: 'Pages', icon: <i className="fa-solid fa-paste"></i> , disabled: true},
-              { label: 'Reports', icon: <i className="fa-solid fa-location-arrow"></i>,  disabled: true },
-              { label: 'Components', icon: <i className="fa-solid fa-box"></i> , disabled: true},
-            ]}
-          >
+          />
+        </Sider>
+        <Layout className="site-layout" >
 
-          </Menu>
-          <Content
-            style={{
-              margin: '0 16px',
-            }}
+          <Space
           >
-            <Breadcrumb
+            <Menu
+              selectedKeys={pathname}
+              mode="inline"
               style={{
-                margin: '16px 0',
+                marginLeft: '50px', backgroundColor: '#f4f5f7', width: 200,
               }}
-            >
-              <Breadcrumb.Item>{breadcrumb[1]}</Breadcrumb.Item>
-              <Breadcrumb.Item>{breadcrumb[2]}</Breadcrumb.Item>
-            </Breadcrumb>
-            <div
-              className="site-layout-background"
-              style={{
-                padding: 24,
-                minHeight: 360,
+              onClick={({ key }) => {
+                navigate(key)
               }}
+              items={[
+                {
+                  label: <Image src="https://cybersoft.edu.vn/wp-content/uploads/2021/03/logo-cyber-nav.svg" width={100} preview={false} />, disabled: true,
+                },
+                { label: <hr />, disabled: true },
+                { label: 'Cyber Board', key: '/project-management/board', icon: <i className="fa-solid fa-credit-card"></i> },
+                { label: 'Project Settings', icon: <i className="fa-solid fa-gear"></i>, disabled: true },
+                { label: <hr />, disabled: true },
+                { label: 'Releases', icon: <i className="fa-solid fa-truck"></i>, disabled: true },
+                { label: 'Issues and Filters', icon: <i className="fa-solid fa-equals"></i>, disabled: true },
+                { label: 'Pages', icon: <i className="fa-solid fa-paste"></i>, disabled: true },
+                { label: 'Reports', icon: <i className="fa-solid fa-location-arrow"></i>, disabled: true },
+                { label: 'Components', icon: <i className="fa-solid fa-box"></i>, disabled: true },
+              ]}
             >
-              <Outlet />
-            </div>
-            <Footer
-              style={{
-                textAlign: 'center',
-              }}
-            >
-              Ant Design ©2018 Created by Ant UED
-            </Footer>
-          </Content>
-        </Space>
 
+            </Menu>
+            <Content
+              style={{
+                margin: '0 16px',
+              }}
+            >
+              <Breadcrumb
+                style={{
+                  margin: '16px 0',
+                }}
+              >
+                <Breadcrumb.Item>{breadcrumb[1]}</Breadcrumb.Item>
+                <Breadcrumb.Item>{breadcrumb[2]}</Breadcrumb.Item>
+              </Breadcrumb>
+              <div
+                className="site-layout-background"
+                style={{
+                  padding: 24,
+                  minHeight: 360,
+                }}
+              >
+                <Outlet />
+              </div>
+              <Footer
+                style={{
+                  textAlign: 'center',
+                }}
+              >
+                Ant Design ©2018 Created by Ant UED
+              </Footer>
+            </Content>
+          </Space>
+
+        </Layout>
       </Layout>
-    </Layout>
+    </div>
   );
 }
 

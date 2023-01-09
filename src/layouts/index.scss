@@ -14,8 +14,8 @@
     left: 0;
     z-index: 10;
 }
-.logo
-{
+
+.logo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,6 +27,11 @@
 .ant-layout,
 .ant-layout.ant-layout-has-sider {
     width: auto !important;
+    height: 100vh;
+
+    .ant-layout-sider {
+        height: 100vh;
+    }
 }
 
 .ant-layout .ant-space-item:last-child,
@@ -40,28 +45,27 @@
     flex: 0 0 50px !important;
     max-width: 50px !important;
     min-width: 50px !important;
-    width: 50px !important;
+    width: 50px;
+}
+.ant-layout-sider-trigger {
+    width: 200px !important;
+    position: absolute;
+    bottom: 0px;
+} 
+.ant-layout-sider-collapsed {
+    .ant-layout-sider-trigger {
+        width: 50px !important;
+        position: absolute;
+        bottom: 0px;
 
-    &:hover {
-        flex: 0 0 200px !important;
-        max-width: 200px !important;
-        min-width: 200px !important;
-        width: 200px !important;
-
-        .ant-menu-item {
-            padding: 0 20px; 
-
-            .ant-menu-title-content {
-                opacity: 1 !important;
-
-            }
-        }
-    }
+    }  
 }
 
 .ant-space-item {
     height: 100%;
-    .ant-menu-item-disabled:nth-child(2),.ant-menu-item-disabled:nth-child(5) {
+
+    .ant-menu-item-disabled:nth-child(2),
+    .ant-menu-item-disabled:nth-child(5) {
         background-color: none !important;
         height: 10px !important;
         cursor: none;
@@ -77,4 +81,33 @@
         width: 100%;
         transition: all 0.2s;
     }
+}
+
+@media screen and (min-width: 992px) {
+    .ant-layout-sider-trigger {
+        display: none;
+    }
+    .ant-layout-sider-collapsed {
+        &:hover {
+            flex: 0 0 200px !important;
+            max-width: 200px !important;
+            min-width: 200px !important;
+            width: 200px;
+    
+            .ant-menu-item {
+                padding: 0 20px;
+    
+                .ant-menu-title-content {
+                    opacity: 1 !important;
+    
+                }
+            }
+    
+        }
+    }
+}
+
+.wrapper{
+    width: 100%;
+    min-width: 300px;
 }
