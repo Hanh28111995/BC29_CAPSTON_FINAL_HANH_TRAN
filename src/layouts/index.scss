@@ -47,18 +47,20 @@
     min-width: 50px !important;
     width: 50px;
 }
+
 .ant-layout-sider-trigger {
     width: 200px !important;
     position: absolute;
     bottom: 0px;
-} 
+}
+
 .ant-layout-sider-collapsed {
     .ant-layout-sider-trigger {
         width: 50px !important;
         position: absolute;
         bottom: 0px;
 
-    }  
+    }
 }
 
 .ant-space-item {
@@ -87,27 +89,30 @@
     .ant-layout-sider-trigger {
         display: none;
     }
+
     .ant-layout-sider-collapsed {
         &:hover {
             flex: 0 0 200px !important;
             max-width: 200px !important;
             min-width: 200px !important;
             width: 200px;
-    
+
             .ant-menu-item {
                 padding: 0 20px;
-    
+
                 .ant-menu-title-content {
                     opacity: 1 !important;
-    
+
                 }
             }
-    
+
         }
     }
 }
 
-.wrapper{
-    width: 100%;
-    min-width: 300px;
+@media screen and (min-width: 300px) {
+    .wrapper_workTable {
+        width: 100%;
+        min-width: 300px;
+    }
 }

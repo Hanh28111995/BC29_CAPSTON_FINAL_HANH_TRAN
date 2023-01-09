@@ -72,10 +72,11 @@ function AdminLayout() {
   // console.log(userState)
 
   return (
-    <div className='wrapper'>
+    <div className='wrapper_workTable'>
       <Layout
         style={{
           minHeight: '100vh',
+          width:'100%'
         }}
       >
         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={{ backgroundColor: '#05357e' }} >
@@ -130,8 +131,9 @@ function AdminLayout() {
         </Sider>
         <Layout className="site-layout" >
 
-          <Space
+          <Space style={{width: "100%"}}
           >
+
             <Menu
               selectedKeys={pathname}
               mode="inline"
@@ -160,7 +162,7 @@ function AdminLayout() {
             </Menu>
             <Content
               style={{
-                margin: '0 16px',
+                margin: '0 16px'
               }}
             >
               <Breadcrumb
@@ -188,6 +190,7 @@ function AdminLayout() {
                 Ant Design ©2018 Created by Ant UED
               </Footer>
             </Content>
+
           </Space>
 
         </Layout>
