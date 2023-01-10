@@ -1,4 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
+import { calculateNewValue } from '@testing-library/user-event/dist/utils';
 import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,7 +41,7 @@ function ModalEdit() {
         <>
             <Drawer
                 title={userState.detail.title}
-                width={720}
+                width={'85%'}
                 onClose={onClose}
                 open={userState.detail.setOpen}
                 bodyStyle={{

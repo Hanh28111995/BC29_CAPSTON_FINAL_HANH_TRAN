@@ -7,22 +7,22 @@ header {
         border: solid 2px $color-blue-4;
 
         a {
-            color: $color-dark-2  !important;
+            color: $color-dark-2 !important;
         }
 
         &:hover {
             color: $color-white-1 ;
-            background-color: $color-blue-4  !important;
+            background-color: $color-blue-4 !important;
 
             a {
-                color: $color-white-1  !important;
+                color: $color-white-1 !important;
             }
         }
 
     }
 }
 
-.container-fluid {
+.RegisterPage .container-fluid {
     background-image: url(https://wac-cdn.atlassian.com/dam/jcr:f505eadc-b6e5-4644-b96e-a8136ec63ceb/Hero-IMG-2x.png?cdnVersion=535);
     background-position: center;
     background-repeat: no-repeat;
@@ -39,6 +39,12 @@ header {
         padding-bottom: 10px;
         width: 70%;
 
+    }
+
+    @media screen and (max-width: 992px) {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        height: auto;
     }
 
 }

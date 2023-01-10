@@ -61,7 +61,7 @@ export default function Login() {
       </header>
       <section className="loginPage">
         <div className="row col-12 container-fluid ">
-          <div className="col-6 login-component-1">
+          <div className="col-12 col-sm-6 login-component-1">
             <div className="p-content w-75">
               <h2>The #1 software development tool used by agile teams</h2>
               <p>EACH PRODUCT ON A FREE PLAN:</p>
@@ -81,7 +81,7 @@ export default function Login() {
               </ul>
             </div>
           </div>
-          <div className="col-6 login-component-2">
+          <div className="col-12 col-sm-6 login-component-2">
             <div className="form-content mx-auto">
               <form className="w-75 mx-auto my-5" onSubmit={handleSubmit}>
                 <h2 className="text-center mb-3">Welcome</h2>

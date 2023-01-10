@@ -28,53 +28,12 @@ export default function Register() {
 
     const handleChange = (event) => {
         const { name, title, minLength, maxLength, pattern, value, validity: { valueMissing, patternMismatch, tooLong, tooShort }, } = event.target;
-        // let message = '';
-
-        // if (pattern) {
-        //     const regex = new RegExp(pattern);
-        //     if (!regex.test(value)) {
-        //         console.log(name);
-        //         if (name === 'taiKhoan') {
-        //             message = `${title} không chứa kí tự đặc biệt.`;
-        //         }
-        //         if (name === 'hoTen') {
-        //             message = `${title} không chứa number và kí tự đặc biệt.`;
-        //         }
-        //         if (name === 'email') {
-        //             message = `${title} không hợp lệ.`;
-        //         } 
-        //         if (name === 'soDT') {
-        //             message = `${title} gồm các số từ 0-9.`;
-        //         } 
-        //     }
-        // }
-
-        // // if (patternMismatch) {
-        // //     message = `Vui lòng nhập ${title} `;
-        // // }
-
-        // if (tooShort || tooLong) {
-        //     message = `${title} từ ${minLength} - ${maxLength} kí tự .`;
-        // }
-
-        // if (valueMissing) {
-        //     message = `Vui lòng nhập ${title} `;
-        // }
         setState({
             values: {
                 ...state.values,
                 [name]: value,
             },
-            // errors: {
-            //     ...state.errors,
-            //     [name]: message,
-            // }
         });
-        // if (formRef.current?.checkValidity()) {
-        //     setValid({
-        //         isValid: false
-        //     })
-        // }
     };
 
 
@@ -82,23 +41,7 @@ export default function Register() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(state.values)
-        // if (event.target.checkValidity()) {
-        //     setValid({
-        //         isValid: true
-        //     })
-        // }
-        // else{
-        //     setValid({
-        //         isValid: false
-        //     })
-        // }
-        // console.log(valid.isValid)
-        // if (valid.isValid) {
-        //     notification.error({
-        //         description: ` Vui lòng nhập đầy đủ thông tin`,
-        //     })
-        // }
-        // else {
+
         try {
             const result = await registerApi(state.values);
             console.log(result.data)
@@ -136,7 +79,7 @@ export default function Register() {
                     </ul>
                 </nav>
             </header>
-            <section>
+            <section className="RegisterPage">
                 <div className='row container-fluid'>
                     <div className='form-content'>
                         <form ref={formRef} noValidate className='w-75 mx-auto my-5'
