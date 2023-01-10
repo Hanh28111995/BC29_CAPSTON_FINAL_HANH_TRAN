@@ -13,6 +13,8 @@ import * as Yup from 'yup';
 import { useContext } from 'react';
 import { notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import './index.scss'
+
 
 function CreateProjectTable(props) {
   const navigate = useNavigate();
@@ -43,14 +45,14 @@ function CreateProjectTable(props) {
   }
 
   return (
-    <div className='container m-5'>
+    <div className=''>
       <h3>Create Project</h3>
-      <form className='container' onSubmit={handleSubmit} onChange={handleChange}>
+      <form className='form_createProject w-100' onSubmit={handleSubmit} onChange={handleChange}>
         <div className='form-group'>
           <p>Name</p>
           <input className='form-control' name='projectName' />
         </div>
-        <div className='form-group'>
+        <div className='form-group w-100'>
           <p>Description</p>
           <Editor
             name='description'

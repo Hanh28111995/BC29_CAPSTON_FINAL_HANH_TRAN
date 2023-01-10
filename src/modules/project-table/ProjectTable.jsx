@@ -6,6 +6,7 @@ import {
   EditOutlined,
   DeleteOutlined,
   CloseCircleTwoTone,
+  
 } from "@ant-design/icons";
 import { removeVietnameseTones } from 'constants/common';
 import { fetchProjectListAPI } from 'services/project';
@@ -161,7 +162,7 @@ function ProjectTable() {
       },
     },
     {
-      title: 'Member',
+      title: 'Mem',
       dataIndex: 'members',
       key: 'members',
       render: (_, { members, ...props }) => {
@@ -186,7 +187,7 @@ function ProjectTable() {
                             return (
                               <tr key={index}>
                                 <td>{item.userId}</td>
-                                <td><Image src={item.avatar} height={20} preview={false} style={{ borderRadius: '50%' }} /></td>
+                                <td><Image src={item.avatar}  preview={false} style={{ borderRadius: '50%' }} /></td>
                                 <td>{item.name}</td>
                                 <td>
                                   <Button shape='circle' style={{ border: 'none', }} size='small' icon={<CloseCircleTwoTone twoToneColor='red' />} onClick={() => handdleRemoveUser(props.id, item.userId)}></Button>
@@ -199,7 +200,7 @@ function ProjectTable() {
                       </table>
                     )
                   }}>
-                    <Image key={item.userId} src={item.avatar} height={30} preview={false} style={{ borderRadius: '50%' }} />
+                    <Image key={item.userId} src={item.avatar} preview={false} style={{ borderRadius: '50%' }} />
                     {
                       ((index === 2) && (members?.length > 3)) ? <Avatar>...</Avatar> : ''
                     }

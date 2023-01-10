@@ -59,7 +59,7 @@ export default function Login() {
           </ul>
         </nav>
       </header>
-      <section>
+      <section className="loginPage">
         <div className="row col-12 container-fluid ">
           <div className="col-6 login-component-1">
             <div className="p-content w-75">

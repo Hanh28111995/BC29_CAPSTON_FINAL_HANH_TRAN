@@ -61,7 +61,7 @@ function ContentMain(props) {
           return (<Droppable droppableId={taskListDetail.statusId} key={index}>
             {(provided) => {
               return (
-                <div key={index} className="card pb-2" style={{ width: '17rem', height: 'auto' }}>
+                <div key={index} className="card pb-2 col-12 col-sm-6 col-md-3" style={{ width: '17rem', height: 'auto' }}>
                   <div className="card-header">
                     {taskListDetail.statusName}
                   </div>
@@ -123,7 +123,7 @@ function ContentMain(props) {
   }
   return (
 
-    <div className="content" style={{ display: 'flex' }}>
+    <div className="content w-100 row" style={{ display: 'flex' }}>
       {renderCard()}
     </div>
   )

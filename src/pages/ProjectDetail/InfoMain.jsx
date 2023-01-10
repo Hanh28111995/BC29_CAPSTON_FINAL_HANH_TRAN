@@ -16,16 +16,16 @@ function InfoMain(props) {
     }
 
     return (
-        <div className="info" style={{ display: 'flex' }}>
-            <div className="search-block">
+        <div className="info w-100 row" >
+            <div className="search-block" style={{ marginLeft: '15px',display: 'flex' }}>
                 <input className="search" />
                 <i className="fa fa-search" />
             </div>
-            <div className="avatar-group" style={{ display: 'flex' }}>
+            <div className="avatar-group" style={{ marginLeft: '15px',display: 'flex'  }}>
                 {renderAvatar()}
             </div>
-            <div style={{ marginLeft: 20 }} className="text">Only My Issues</div>
-            <div style={{ marginLeft: 20 }} className="text">Recently Updated</div>
+            <div  style={{ marginLeft: '15px',display: 'flex' }} className="text notBuild">Only My Issues</div>
+            <div  style={{ marginLeft: '15px',display: 'flex' }} className="text notBuild">Recently Updated</div>
         </div>
     )
 }

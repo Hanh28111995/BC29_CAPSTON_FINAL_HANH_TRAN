@@ -56,8 +56,8 @@ code {
   margin: 5px;
   outline: none !important;
 }
-.btn-more-infor:hover 
-{
+
+.btn-more-infor:hover {
   background-color: rgba(46, 46, 46, 1);
 }
 
@@ -97,6 +97,7 @@ h4 {
 .card:hover .overlay {
   opacity: 1;
 }
+
 .TitleCarousel {
   background: #231f20;
   height: 40px;
@@ -106,13 +107,19 @@ h4 {
   font-weight: normal;
   margin-bottom: 0;
   align-items: center;
-  
+
 }
+
 .TitleCarousel p {
   margin-bottom: 0;
 }
+
 .ant-col-16 {
   max-width: 70%;
 }
+
 /* //// */
-.tox-notification { display: none !important }
+.tox-notification {
+  display: none !important
+}
+
