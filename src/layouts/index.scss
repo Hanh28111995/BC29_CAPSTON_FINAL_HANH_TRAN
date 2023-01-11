@@ -63,168 +63,171 @@
     }
 }
 
-.ant-space-item {
-    height: 100%;
-
-    .ant-menu-item-disabled:nth-child(2),
-    .ant-menu-item-disabled:nth-child(5) {
-        background-color: none !important;
-        height: 10px !important;
-        cursor: none;
-    }
-
-    .ant-menu-item-disabled:first-child {
-        margin: 2rem auto;
-        height: 50px !important;
-        cursor: none;
-    }
-
-    .ant-menu-item-selected {
-        width: 100%;
-        transition: all 0.2s;
-    }
-}
-
-.ant-space {
-    display: flex;
-    flex-direction: column;
-
-    .ant-space-item {
-        width: 100%;
-
-        .ant-menu {
-            width: 100%;
-        }
-
-        .site-layout-background {
-            padding: 0 !important;
-
-
-            h5 {
-                font-size: 0.8rem;
-            }
-
-            .ant-table-wrapper .ant-table-container table th,
-            .ant-table-wrapper .ant-table-container table td,
-            .ant-table-wrapper .ant-table-container table td .ant-tag {
-                font-size: 0.4rem;
-                margin: 0;
-                white-space: none;
-                line-height: 1.5715;
-                white-space: normal;
-            }
-
-            .ant-table-wrapper .ant-table-container table td .ant-image img,
-            .ant-table-wrapper .ant-table-container table td .ant-avatar {
-                height: 17px;
-                width: 17px;
-            }
-
-            .ant-table-wrapper .ant-table-container table td .ant-avatar {
-                font-size: 0.7rem;
-            }
-
-            .ant-table-wrapper .ant-table-container table td .ant-btn {
-                line-height: 0.2;
-                height: 17px;
-
-                span {
-                    font-size: 0.7rem;
-                }
-
-                min-width: 17px;
-            }
-            .ant-table-column-sorter-up,
-            .ant-table-column-sorter-down {
-                font-size: 0.4rem;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 992px) {
+.ant-layout {
     .ant-space {
-        flex-direction: row;
-        display: inline-flex;
+        display: flex;
+        flex-direction: column;
 
         .ant-space-item {
-            width: 200px;
+            width: 100%;
+            height: 100%;
+
+            .ant-menu-item-disabled:nth-child(2),
+            .ant-menu-item-disabled:nth-child(5) {
+                background-color: none !important;
+                height: 10px !important;
+                cursor: none;
+            }
+
+            .ant-menu-item-disabled:first-child {
+                margin: 2rem auto;
+                height: 50px !important;
+                cursor: none;
+            }
+
+            .ant-menu-item-selected {
+                width: 100%;
+                transition: all 0.2s;
+            }
 
             .ant-menu {
-                width: 200px;
+                width: 100%;
             }
 
             .site-layout-background {
-                padding: 5px !important;
+                padding: 0 !important;
 
 
                 h5 {
-                    font-size: 1rem;
+                    font-size: 0.8rem;
                 }
 
                 .ant-table-wrapper .ant-table-container table th,
                 .ant-table-wrapper .ant-table-container table td,
                 .ant-table-wrapper .ant-table-container table td .ant-tag {
-                    font-size: 0.8rem;
+                    font-size: 0.4rem;
+                    margin: 0;
+                    white-space: none;
+                    line-height: 1.5715;
+                    white-space: normal;
                 }
 
                 .ant-table-wrapper .ant-table-container table td .ant-image img,
                 .ant-table-wrapper .ant-table-container table td .ant-avatar {
-                    height: 30px;
-                    width: 30px;
+                    height: 17px;
+                    width: 17px;
                 }
 
                 .ant-table-wrapper .ant-table-container table td .ant-avatar {
                     font-size: 1rem;
                 }
 
+                .ant-table-wrapper .ant-table-container table td .ant-avatar-circle {
+                    font-size: 1rem;
+                }
+
                 .ant-table-wrapper .ant-table-container table td .ant-btn {
-                    line-height: 0.2;
-                    height: 30px;
-                    padding-bottom: 9px;
-
-                    span {
-                        font-size: 1rem;
-                    }
-
-                    min-width: 32px;
+                    transform: translateY(2px);
+                    line-height: 0;
+                    padding-top: 3px;
+                    height: 17px;
+                    font-size: 0.7rem;
+                    min-width: 17px;
                 }
 
                 .ant-table-column-sorter-up,
                 .ant-table-column-sorter-down {
-                    font-size: 0.8rem;
+                    font-size: 0.4rem;
                 }
-
             }
         }
     }
 
-    .ant-layout-sider-trigger {
-        display: none;
-    }
+    @media screen and (min-width: 992px) {
+
+        .ant-space {
+            flex-direction: row;
+            display: inline-flex;
+
+            .ant-table-cell .ant-space .ant-space-item {
+                width: 100%;
+            }
+
+            .ant-space-item {
+                width: 200px;
+
+                .ant-menu {
+                    width: 200px;
+                }
+
+                .site-layout-background {
+                    padding: 5px !important;
 
 
+                    h5 {
+                        font-size: 1rem;
+                    }
 
-    .ant-layout-sider-collapsed {
-        &:hover {
-            flex: 0 0 200px !important;
-            max-width: 200px !important;
-            min-width: 200px !important;
-            width: 200px;
+                    .ant-table-wrapper .ant-table-container table th,
+                    .ant-table-wrapper .ant-table-container table td,
+                    .ant-table-wrapper .ant-table-container table td .ant-tag {
+                        font-size: 0.8rem;
+                    }
 
-            .ant-menu-item {
-                padding: 0 20px;
+                    .ant-table-wrapper .ant-table-container table td .ant-image img,
+                    .ant-table-wrapper .ant-table-container table td .ant-avatar {
+                        height: 30px;
+                        width: 30px;
+                    }
 
-                .ant-menu-title-content {
-                    opacity: 1 !important;
+                    .ant-table-wrapper .ant-table-container table td .ant-avatar {
+                        font-size: 1rem;
+
+                    }
+
+                    .ant-table-wrapper .ant-table-container table td .ant-btn {
+                        height: 30px;
+                        font-size: 1.2rem;
+                        min-width: 32px;
+                        transform: translateY(1px);
+                        padding-bottom: 10px;
+                    }
+
+                    .ant-table-column-sorter-up,
+                    .ant-table-column-sorter-down {
+                        font-size: 0.8rem;
+                    }
 
                 }
             }
+        }
 
+        .ant-layout-sider-trigger {
+            display: none;
+        }
+
+
+
+        .ant-layout-sider-collapsed {
+            &:hover {
+                flex: 0 0 200px !important;
+                max-width: 200px !important;
+                min-width: 200px !important;
+                width: 200px;
+
+                .ant-menu-item {
+                    padding: 0 20px;
+
+                    .ant-menu-title-content {
+                        opacity: 1 !important;
+
+                    }
+                }
+
+            }
         }
     }
 }
-
 
 .wrapper_content {
     display: inline-flex;
