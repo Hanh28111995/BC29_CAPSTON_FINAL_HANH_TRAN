@@ -108,11 +108,15 @@
             .ant-table-wrapper .ant-table-container table td,
             .ant-table-wrapper .ant-table-container table td .ant-tag {
                 font-size: 0.4rem;
+                margin: 0;
+                white-space: none;
+                line-height: 1.5715;
+                white-space: normal;
             }
 
             .ant-table-wrapper .ant-table-container table td .ant-image img,
             .ant-table-wrapper .ant-table-container table td .ant-avatar {
-                height: 15px;
+                height: 17px;
                 width: 17px;
             }
 
@@ -167,7 +171,7 @@
                 .ant-table-wrapper .ant-table-container table td .ant-image img,
                 .ant-table-wrapper .ant-table-container table td .ant-avatar {
                     height: 30px;
-                    width: 32px;
+                    width: 30px;
                 }
 
                 .ant-table-wrapper .ant-table-container table td .ant-avatar {
@@ -176,7 +180,7 @@
 
                 .ant-table-wrapper .ant-table-container table td .ant-btn {
                     line-height: 0.2;
-                    height: 32px;
+                    height: 30px;
                     padding-bottom: 9px;
 
                     span {
