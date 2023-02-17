@@ -11,8 +11,8 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [state, setState] = useState({
-    email: "",
-    passWord: "",
+    email: "cyberlearn@gmail.com",
+    passWord: "123456",
   });
 
   const handleChange = (event) => {
@@ -88,6 +88,7 @@ export default function Login() {
                 <div className="form-group">
                   <label>Work email</label>
                   <input
+                    defaultValue={state.email}
                     name="email"
                     onChange={handleChange}
                     type="text"
@@ -98,9 +99,10 @@ export default function Login() {
                 <div className="form-group">
                   <label>Password</label>
                   <input
+                    defaultValue={state.passWord}
                     name="passWord"
                     onChange={handleChange}
-                    type="text"
+                    type='password'
                     className="form-control"
                   />
                   <span><i className="fa-solid fa-lock" style={{ color: 'navy' }}></i></span>
